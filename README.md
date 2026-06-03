@@ -88,14 +88,6 @@ Make sure the following variables are configured in your `.env` file:
 - `CLOUD_API_SECRET`
 - `MAP_TOKEN`
 
-## Future Improvements
-
-- Booking and reservation flow
-- Wishlist / favorites feature
-- Search filters and category-based browsing
-- User profile pages
-- Payment integration
-
 ## Author
 
 Developed by **Akshat**.
