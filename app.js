@@ -108,6 +108,10 @@ app.use((req, res, next) => {
 //     res.send(registeredUser);
 // });
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
+
 app.use("/listings", listingRouter); //To access listings by this.
 app.use("/listings/:id/reviews", reviewRouter); //To access reviews by this.
 app.use("/", userRouter); //To access users by this.
