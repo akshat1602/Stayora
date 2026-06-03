@@ -1,0 +1,84 @@
+<!-- EJS-mate -->
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+
+    <h3>Edit Your Listing</h3>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control <%= error && error.errors && error.errors.title ? 'is-invalid' : '' %>" required>
+            <div class="invalid-feedback">Please enter a title.</div>
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" class="form-control <%= error && error.errors && error.errors.description ? 'is-invalid' : '' %>" required><%= listing.description %></textarea>
+            <div class="invalid-feedback">Please enter a description.</div>
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <!-- current image preview shown below -->
+
+        <div class="mb-3">
+            Original Listing Image <br><br>
+            <% if (originalImageUrl || (listing.image && listing.image.url)) { %>
+                <img id="currentImagePreview" src="<%= originalImageUrl ? originalImageUrl : (listing.image && listing.image.url ? listing.image.url : '') %>" class="card-img-top show-img mb-3" alt="current listing image">
+            <% } else { %>
+                <img id="currentImagePreview" src="" class="card-img-top show-img mb-3" alt="preview" style="display:none;">
+            <% } %>
+
+            <label for="image" class="form-label">Upload New Image</label>
+            <input id="imageInput" name="listing[image]" type="file" class="form-control <%= error && error.errors && error.errors.image ? 'is-invalid' : '' %>">
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="row">
+        <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" value="<%= (listing.price || listing.price === 0) ? listing.price : '' %>" type="number" min="0" step="1" class="form-control <%= error && error.errors && error.errors.price ? 'is-invalid' : '' %>" required>
+            <div class="invalid-feedback">Please enter a valid non-negative price.</div>
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control <%= error && error.errors && error.errors.country ? 'is-invalid' : '' %>" required>
+            <div class="invalid-feedback">Please enter a country.</div>
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control <%= error && error.errors && error.errors.location ? 'is-invalid' : '' %>" required>
+            <div class="invalid-feedback">Please enter a location.</div>
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <br><br>
+        <button class="btn btn-dark edit-btn mt-3">Edit</button>
+    </form>
+
+    </div>
+</div>
+
+<script>
+// Client-side preview of selected image file
+const imageInput = document.getElementById('imageInput');
+const preview = document.getElementById('currentImagePreview');
+if(imageInput){
+    imageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(evt){
+            preview.src = evt.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    });
+}
+</script>
