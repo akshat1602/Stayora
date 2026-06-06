@@ -1,82 +1,141 @@
 <!-- EJS-mate -->
 <% layout("/layouts/boilerplate") %>
-<div class="row mt-3">
-    <div class="col-8 offset-2">
 
-    <br>
-    <h3>Create a New Listing</h3>
+<div class="new-wrapper mt-3">
+    <div class="new-form-container">
 
-    <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-        <!-- Title of listing -->
-        <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input name="listing[title]" placeholder="enter title" type="text" class="form-control <%= error && error.errors && error.errors.title ? 'is-invalid' : '' %>" value="<%= listing && listing.title ? listing.title : '' %>" required/>
-        <div class="invalid-feedback">
-            Please enter a title.
-        </div>
-        <div class="valid-feedback">
-            Title looks good!
-        </div>
-        </div>
+        <h3>Create a New Listing</h3>
 
-        <!-- Description of listing -->
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea name="listing[description]" placeholder="enter description" type="text" class="form-control <%= error && error.errors && error.errors.description ? 'is-invalid' : '' %>" required><%= listing && listing.description ? listing.description : '' %></textarea>
-            <div class="invalid-feedback">
-                Please enter a description.
+        <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+            <!-- Title of listing -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input
+                    name="listing[title]"
+                    placeholder="enter title"
+                    type="text"
+                    class="form-control <%= error && error.errors && error.errors.title ? 'is-invalid' : '' %>"
+                    value="<%= listing && listing.title ? listing.title : '' %>"
+                    required
+                />
+                <div class="invalid-feedback">
+                    Please enter a title.
+                </div>
+                <div class="valid-feedback">
+                    Title looks good!
+                </div>
             </div>
-            <div class="valid-feedback">
-                Description looks good!
-            </div>
-        </div>
 
-        <!-- Image Link of listing -->
-        <div class="mb-3">
-            <label for="image" class="form-label">Upload Listing Image</label>
-            <input name="listing[image]" type="file" class="form-control" required>
-        </div>
+            <!-- Description of listing -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                    name="listing[description]"
+                    placeholder="enter description"
+                    class="form-control new-textarea <%= error && error.errors && error.errors.description ? 'is-invalid' : '' %>"
+                    required
+                ><%= listing && listing.description ? listing.description : '' %></textarea>
+                <div class="invalid-feedback">
+                    Please enter a description.
+                </div>
+                <div class="valid-feedback">
+                    Description looks good!
+                </div>
+            </div>
 
-        <!-- Price and country of listing -->
-        <div class="row">
-        <div class="mb-3 col-md-4">
-            <label for="price" class="form-label">Price</label>
-            <input name="listing[price]" placeholder="enter price" type="number" min="1" step="1" class="form-control <%= error && error.errors && error.errors.price ? 'is-invalid' : '' %>" value="<%= listing && (listing.price || listing.price === 0) ? listing.price : '' %>" required/>
-            <div class="invalid-feedback">
-                Please enter a valid non-negative price.
+            <!-- Image Link of listing -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Listing Image</label>
+                <img id="newImagePreview" src="" class="card-img-top new-preview-img mb-3" alt="preview" style="display:none;">
+                <input
+                    id="newImageInput"
+                    name="listing[image]"
+                    type="file"
+                    class="form-control"
+                    required
+                >
             </div>
-            <div class="valid-feedback">
-                Price looks good!
-            </div>
-        </div>
-    
-        <div class="mb-3 col-md-8">
-            <label for="country" class="form-label">Country</label>
-            <input name="listing[country]" placeholder="enter country" type="text" class="form-control <%= error && error.errors && error.errors.country ? 'is-invalid' : '' %>" value="<%= listing && listing.country ? listing.country : '' %>" required/>
-            <div class="invalid-feedback">
-                Please enter a country.
-            </div>
-            <div class="valid-feedback">
-                Country looks good!
-            </div>
-        </div>
-        </div>
-        
-        <!-- Location of listing -->
-        <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input name="listing[location]" placeholder="enter location" type="text" class="form-control <%= error && error.errors && error.errors.location ? 'is-invalid' : '' %>" value="<%= listing && listing.location ? listing.location : '' %>" required/>
-            <div class="invalid-feedback">
-                Please enter a location.
-            </div>
-            <div class="valid-feedback">
-               Location looks good!
-            </div>
-        </div>
 
-        
-        <button class="btn btn-dark add-btn mt-3">Add</button>
+            <!-- Price and country of listing -->
+            <div class="row g-3">
+                <div class="col-12 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input
+                        name="listing[price]"
+                        placeholder="enter price"
+                        type="number"
+                        min="1"
+                        step="1"
+                        class="form-control <%= error && error.errors && error.errors.price ? 'is-invalid' : '' %>"
+                        value="<%= listing && (listing.price || listing.price === 0) ? listing.price : '' %>"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please enter a valid non-negative price.
+                    </div>
+                    <div class="valid-feedback">
+                        Price looks good!
+                    </div>
+                </div>
 
-    </form>
+                <div class="col-12 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input
+                        name="listing[country]"
+                        placeholder="enter country"
+                        type="text"
+                        class="form-control <%= error && error.errors && error.errors.country ? 'is-invalid' : '' %>"
+                        value="<%= listing && listing.country ? listing.country : '' %>"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please enter a country.
+                    </div>
+                    <div class="valid-feedback">
+                        Country looks good!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location of listing -->
+            <div class="mb-3 mt-3">
+                <label for="location" class="form-label">Location</label>
+                <input
+                    name="listing[location]"
+                    placeholder="enter location"
+                    type="text"
+                    class="form-control <%= error && error.errors && error.errors.location ? 'is-invalid' : '' %>"
+                    value="<%= listing && listing.location ? listing.location : '' %>"
+                    required
+                />
+                <div class="invalid-feedback">
+                    Please enter a location.
+                </div>
+                <div class="valid-feedback">
+                    Location looks good!
+                </div>
+            </div>
+
+            <button class="btn btn-dark add-btn mt-3 new-submit-btn">Add Listing</button>
+        </form>
     </div>
 </div>
+
+<script>
+    const newImageInput = document.getElementById('newImageInput');
+    const newPreview = document.getElementById('newImagePreview');
+
+    if (newImageInput) {
+        newImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                newPreview.src = evt.target.result;
+                newPreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
