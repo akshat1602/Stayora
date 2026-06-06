@@ -107,6 +107,49 @@ body{
   border: none !important;
 }
 
+.edit-wrapper{
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.edit-form-container{
+  width: min(100%, 760px);
+  margin: 0 auto 2rem;
+}
+
+.edit-form-container h3{
+  margin-bottom: 1.25rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.edit-form-container .form-label{
+  font-weight: 500;
+}
+
+.edit-form-container .form-control{
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+}
+
+.edit-textarea{
+  min-height: 140px;
+  resize: vertical;
+}
+
+.edit-preview-img{
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 1rem;
+  display: block;
+}
+
+.edit-submit-btn{
+  min-width: 160px;
+}
+
 /* SHOW PAGE */
 .show-wrapper {
   display: flex;
@@ -253,6 +296,28 @@ body{
 
 /* MOBILE */
 @media (max-width: 767px) {
+  .edit-wrapper{
+    padding: 0 0.8rem;
+  }
+
+  .edit-form-container{
+    width: 100%;
+    margin: 0 auto 2.5rem;
+  }
+
+  .edit-form-container h3{
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .edit-preview-img{
+    max-height: 240px;
+  }
+
+  .edit-submit-btn{
+    width: 100%;
+  }
+
   .show-wrapper {
     padding: 0 0.8rem;
   }
