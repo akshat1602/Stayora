@@ -4,6 +4,7 @@
         const mapToken = "<%= process.env.MAP_TOKEN %>";
         const listingData = <%- JSON.stringify(listing) %>;
     </script>
+
     <div class="show-wrapper mt-3">
         <div class="show-grid">
             <div class="show-main">
@@ -44,7 +45,7 @@
                                 <button class="btn btn-dark">Delete</button>
                             </form>
                         </div>
-                        <% } %>
+                    <% } %>
                 </div>
             </div>
 
@@ -86,45 +87,51 @@
                                     <button class="btn btn-outline-dark">Submit</button>
                                 </form>
                                 <hr>
-                                <% } %>
-                                    <!-- Review card -->
-                                    <% if(listing.reviews.length> 0) {%>
-                                        <div class="row">
-                                            <p><b>All Reviews</b></p>
-                                            <% for(review of listing.reviews) {%>
-                                                <div class="card review-card col-5 ms-3 mb-3">
+                            <% } %>
+
+                            <!-- Review card -->
+                            <% if(listing.reviews.length> 0) {%>
+                                <div class="review-section">
+                                    <p><b>All Reviews</b></p>
+                                    <div class="row g-3 review-row">
+                                        <% for(let review of listing.reviews) {%>
+                                            <div class="col-12 col-md-6">
+                                                <div class="card review-card h-100">
                                                     <div class="card-body">
                                                         <!-- Author name -->
-                                                        <h5 class="card-title">@<%= review.author.username %>
-                                                        </h5>
+                                                        <h5 class="card-title">@<%= review.author.username %></h5>
+
                                                         <!-- Stars -->
                                                         <p class="starability-result card-text"
                                                             data-rating="<%= review.rating %>"></p>
+
                                                         <!-- Review -->
                                                         <p class="card-text">
                                                             <%= review.comment %>
                                                         </p>
 
                                                         <!-- Delete button -->
-                                                        <form class="mb-3" method="POST"
+                                                        <form class="mb-0" method="POST"
                                                             action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                                                             <button class="btn btn-sm btn-dark">Delete</button>
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <% } %>
-                                        </div>
+                                            </div>
                                         <% } %>
+                                    </div>
+                                </div>
+                            <% } %>
                         </div>
+
                         <div class="map-wrapper mb-3">
                             <h3>Where you'll be</h3>
                             <div id="map"></div>
                         </div>
                     </div>
                 </div>
+            </aside>
         </div>
-        </aside>
-    </div>
     </div>
 
     <!-- For maps -->
