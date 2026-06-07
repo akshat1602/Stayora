@@ -3,21 +3,86 @@
 
 <!-- Syles -->
 <style>
+    .search-filter-box {
+        background: #ffffff;
+        border: 2px solid #cfcfcf;
+        border-radius: 1.25rem;
+        padding: 1rem 1rem 0.9rem;
+        margin: 1rem auto 1.1rem;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .search-filter-box .form-label {
+        font-weight: 500;
+        margin-bottom: 0.45rem;
+        color: #222222;
+        font-size: 0.95rem;
+    }
+
+    .search-filter-box .form-control,
+    .search-filter-box .form-select {
+        border-radius: 0.9rem;
+        min-height: 2.9rem;
+        border: 1.5px solid #d6d6d6;
+        box-shadow: none;
+    }
+
+    .search-filter-box .form-control:focus,
+    .search-filter-box .form-select:focus {
+        border-color: #222222;
+        box-shadow: 0 0 0 0.1rem rgba(34, 34, 34, 0.08);
+    }
+
+    .search-filter-box .row {
+        align-items: end;
+    }
+
+    .filter-actions {
+        display: flex;
+        gap: 0.85rem;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .filter-actions .btn {
+        border-radius: 0.8rem;
+        min-height: 2.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1;
+        padding: 0 1.1rem;
+        white-space: nowrap;
+        flex: 1;
+    }
+
+    .filter-actions .btn-dark {
+        border: 1.5px solid #212529;
+    }
+
+    .filter-actions .btn-outline-secondary {
+        border: 1.5px solid #9a9a9a;
+        color: #555555;
+    }
+
     .filters-toolbar {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-        gap: 1rem;
-        margin-top: 1rem;
+        align-items: center;
+        gap: 1.25rem;
+        margin-top: 0.15rem;
+        margin-bottom: 0.3rem;
     }
 
     #filters {
         display: flex;
         align-items: flex-start;
-        gap: 1.5rem;
+        gap: 1.6rem;
         overflow-x: auto;
         white-space: nowrap;
-        padding: 0 0.25rem 0.85rem;
+        padding: 0 0.35rem 0.75rem;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
         flex: 1;
@@ -44,14 +109,28 @@
 
     .filter {
         text-align: center;
-        opacity: 0.75;
-        min-width: 92px;
+        opacity: 0.78;
+        min-width: 96px;
         flex: 0 0 auto;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease;
     }
 
     .filter:hover {
         opacity: 1;
         cursor: pointer;
+        transform: translateY(-1px);
+    }
+
+    .filter.active-filter {
+        opacity: 1;
+    }
+
+    .filter.active-filter i,
+    .filter.active-filter p {
+        color: #fe424d;
+        font-weight: 600;
     }
 
     .filter i {
@@ -60,7 +139,7 @@
     }
 
     .filter p {
-        font-size: 0.74rem;
+        font-size: 0.76rem;
         line-height: 1.25;
         margin: 0;
         white-space: normal;
@@ -71,15 +150,21 @@
     }
 
     .tax-toggle {
-        border: 1px solid black;
+        border: 1px solid #222222;
         border-radius: 1rem;
-        min-height: 3.25rem;
-        padding: 0.75rem 1rem;
+        min-height: 3rem;
+        padding: 0.65rem 1rem;
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-shrink: 0;
         min-width: max-content;
-        background-color: white;
+        background-color: #ffffff;
+        margin-left: 0.5rem;
+    }
+
+    .tax-toggle .form-check-label {
+        font-size: 0.94rem;
     }
 
     .listing-link {
@@ -88,7 +173,7 @@
 
     .listing-card {
         border: none !important;
-        margin-bottom: 2rem;
+        margin-bottom: 1.6rem;
     }
 
     .listing-card .card-img-top {
@@ -101,6 +186,7 @@
     .card-img-overlay {
         opacity: 0;
         border-radius: 1rem;
+        transition: all 0.2s ease-in-out;
     }
 
     .card-img-overlay:hover {
@@ -119,10 +205,44 @@
     }
 
     .listing-row {
+        margin-top: 0.85rem;
+    }
+
+    .empty-state-box {
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 1rem;
+        padding: 1.25rem;
         margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 992px) {
+        .search-filter-box {
+            max-width: 1120px;
+        }
+
+        .filter-actions {
+            justify-content: flex-end;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .search-filter-box {
+            padding: 0.95rem;
+        }
+
+        .filters-toolbar {
+            align-items: flex-start;
+        }
     }
 
     @media (max-width: 767px) {
+        .search-filter-box {
+            padding: 0.85rem;
+            border-radius: 1.1rem;
+        }
+
         .filters-toolbar {
             display: block;
             margin-top: 0.85rem;
@@ -171,56 +291,120 @@
         .listing-row {
             margin-top: 0.75rem;
         }
+
+        .filter-actions {
+            flex-direction: column;
+        }
+
+        .filter-actions .btn {
+            width: 100%;
+        }
     }
 </style>
+
+<form action="/listings" method="GET" class="search-filter-box">
+    <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-3">
+            <label for="search" class="form-label">Search</label>
+            <input
+                type="text"
+                id="search"
+                name="search"
+                class="form-control"
+                placeholder="Search by title, location, country"
+                value="<%= filters && filters.search ? filters.search : '' %>"
+            >
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+            <label for="minPrice" class="form-label">Min Price</label>
+            <input
+                type="number"
+                id="minPrice"
+                name="minPrice"
+                min="0"
+                class="form-control"
+                value="<%= filters && filters.minPrice ? filters.minPrice : '' %>"
+            >
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+            <label for="maxPrice" class="form-label">Max Price</label>
+            <input
+                type="number"
+                id="maxPrice"
+                name="maxPrice"
+                min="0"
+                class="form-control"
+                value="<%= filters && filters.maxPrice ? filters.maxPrice : '' %>"
+            >
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-2">
+            <label for="sort" class="form-label">Sort</label>
+            <select id="sort" name="sort" class="form-select">
+                <option value="">Newest</option>
+                <option value="price_asc" <%= filters && filters.sort === "price_asc" ? "selected" : "" %>>Price: Low to High</option>
+                <option value="price_desc" <%= filters && filters.sort === "price_desc" ? "selected" : "" %>>Price: High to Low</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-end">
+            <div class="filter-actions w-100">
+                <button class="btn btn-dark">Apply</button>
+                <a href="/listings" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="filters-toolbar">
     <!-- Various categories : future updates with backend** -->
     <div id="filters">
-        <div class="filter">
+        <a href="/listings?category=Trending" class="filter <%= filters && filters.category === 'Trending' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-fire"></i></div>
             <p>Trending</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Rooms" class="filter <%= filters && filters.category === 'Rooms' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-bed"></i></div>
             <p>Rooms</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Iconic%20cities" class="filter <%= filters && filters.category === 'Iconic cities' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-mountain-city"></i></div>
             <p>Iconic cities</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Mountains" class="filter <%= filters && filters.category === 'Mountains' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-mountain"></i></div>
             <p>Mountains</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Castles" class="filter <%= filters && filters.category === 'Castles' ? 'active-filter' : '' %>">
             <div><i class="fa-brands fa-fort-awesome"></i></div>
             <p>Castles</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Amazing%20Pools" class="filter <%= filters && filters.category === 'Amazing Pools' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-person-swimming"></i></div>
             <p>Amazing Pools</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Camping" class="filter <%= filters && filters.category === 'Camping' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-campground"></i></div>
             <p>Camping</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Farms" class="filter <%= filters && filters.category === 'Farms' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-tractor"></i></div>
             <p>Farms</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Arctic" class="filter <%= filters && filters.category === 'Arctic' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-snowflake"></i></div>
             <p>Arctic</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Domes" class="filter <%= filters && filters.category === 'Domes' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-landmark-dome"></i></div>
             <p>Domes</p>
-        </div>
-        <div class="filter">
+        </a>
+        <a href="/listings?category=Beaches" class="filter <%= filters && filters.category === 'Beaches' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-umbrella-beach"></i></div>
             <p>Beaches</p>
-        </div>
+        </a>
     </div>
 
     <!-- Tax Switch -->
@@ -233,6 +417,13 @@
 </div>
 
 <p class="filters-hint">Swipe for more filters →</p>
+
+<% if(allListings.length === 0) { %>
+    <div class="empty-state-box">
+        <h5 class="mb-2">No listings found</h5>
+        <p class="mb-0">Try changing your search or filter values.</p>
+    </div>
+<% } %>
 
 <!-- Designing card -->
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 listing-row">

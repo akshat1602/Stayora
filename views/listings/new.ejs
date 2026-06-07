@@ -1,10 +1,13 @@
 <!-- EJS-mate -->
 <% layout("/layouts/boilerplate") %>
 
+
 <div class="new-wrapper mt-3">
     <div class="new-form-container">
 
+
         <h3>Create a New Listing</h3>
+
 
         <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
             <!-- Title of listing -->
@@ -26,6 +29,7 @@
                 </div>
             </div>
 
+
             <!-- Description of listing -->
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -43,6 +47,37 @@
                 </div>
             </div>
 
+
+            <!-- Category of listing -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select
+                    name="listing[category]"
+                    class="form-select <%= error && error.errors && error.errors.category ? 'is-invalid' : '' %>"
+                    required
+                >
+                    <option value="">Select a category</option>
+                    <option value="Trending" <%= listing && listing.category === "Trending" ? "selected" : "" %>>Trending</option>
+                    <option value="Rooms" <%= listing && listing.category === "Rooms" ? "selected" : "" %>>Rooms</option>
+                    <option value="Iconic cities" <%= listing && listing.category === "Iconic cities" ? "selected" : "" %>>Iconic cities</option>
+                    <option value="Mountains" <%= listing && listing.category === "Mountains" ? "selected" : "" %>>Mountains</option>
+                    <option value="Castles" <%= listing && listing.category === "Castles" ? "selected" : "" %>>Castles</option>
+                    <option value="Amazing Pools" <%= listing && listing.category === "Amazing Pools" ? "selected" : "" %>>Amazing Pools</option>
+                    <option value="Camping" <%= listing && listing.category === "Camping" ? "selected" : "" %>>Camping</option>
+                    <option value="Farms" <%= listing && listing.category === "Farms" ? "selected" : "" %>>Farms</option>
+                    <option value="Arctic" <%= listing && listing.category === "Arctic" ? "selected" : "" %>>Arctic</option>
+                    <option value="Domes" <%= listing && listing.category === "Domes" ? "selected" : "" %>>Domes</option>
+                    <option value="Beaches" <%= listing && listing.category === "Beaches" ? "selected" : "" %>>Beaches</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a category.
+                </div>
+                <div class="valid-feedback">
+                    Category looks good!
+                </div>
+            </div>
+
+
             <!-- Image Link of listing -->
             <div class="mb-3">
                 <label for="image" class="form-label">Upload Listing Image</label>
@@ -55,6 +90,7 @@
                     required
                 >
             </div>
+
 
             <!-- Price and country of listing -->
             <div class="row g-3">
@@ -78,6 +114,7 @@
                     </div>
                 </div>
 
+
                 <div class="col-12 col-md-8">
                     <label for="country" class="form-label">Country</label>
                     <input
@@ -96,6 +133,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- Location of listing -->
             <div class="mb-3 mt-3">
@@ -116,19 +154,23 @@
                 </div>
             </div>
 
+
             <button class="btn btn-dark add-btn mt-3 new-submit-btn">Add Listing</button>
         </form>
     </div>
 </div>
 
+
 <script>
     const newImageInput = document.getElementById('newImageInput');
     const newPreview = document.getElementById('newImagePreview');
+
 
     if (newImageInput) {
         newImageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (!file) return;
+
 
             const reader = new FileReader();
             reader.onload = function(evt) {

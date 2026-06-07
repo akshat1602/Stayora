@@ -7,8 +7,56 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 //Index Route
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", {allListings});
+    let { search, category, minPrice, maxPrice, sort } = req.query;
+
+    let filter = {};
+
+    if (search && search.trim() !== "") {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    if (category && category.trim() !== "") {
+        filter.category = category;
+    }
+
+    if (minPrice || maxPrice) {
+        filter.price = {};
+
+        if (minPrice && !isNaN(minPrice)) {
+            filter.price.$gte = Number(minPrice);
+        }
+
+        if (maxPrice && !isNaN(maxPrice)) {
+            filter.price.$lte = Number(maxPrice);
+        }
+    }
+
+    let query = Listing.find(filter);
+
+    if (sort === "price_asc") {
+        query = query.sort({ price: 1 });
+    } else if (sort === "price_desc") {
+        query = query.sort({ price: -1 });
+    } else {
+        query = query.sort({ _id: -1 });
+    }
+
+    const allListings = await query;
+
+    res.render("listings/index.ejs", {
+        allListings,
+        filters: {
+            search: search || "",
+            category: category || "",
+            minPrice: minPrice || "",
+            maxPrice: maxPrice || "",
+            sort: sort || ""
+        }
+    });
 };
 
 //New Route

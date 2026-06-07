@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
 
+
 //Schema Declaration
 const listingSchema = new Schema({
     title: {
@@ -30,6 +31,25 @@ const listingSchema = new Schema({
         type: String,
         required: true,
     },
+    category: {
+    type: String,
+    enum: [
+        "Trending",
+        "Rooms",
+        "Iconic cities",
+        "Mountains",
+        "Castles",
+        "Amazing Pools",
+        "Camping",
+        "Farms",
+        "Arctic",
+        "Domes",
+        "Beaches"
+    ],
+    default: "Trending",
+    required: true,
+},
+
 
     //For reviews
     reviews: [
@@ -39,11 +59,13 @@ const listingSchema = new Schema({
         }
     ],
 
+
     //For authorisation
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+
 
     //Maps
     geometry: {
@@ -51,13 +73,14 @@ const listingSchema = new Schema({
             type: String, // Don't do `{ location: { type: String } }`
             enum: ['Point'], // 'location.type' must be 'Point'
             required: true
-    },
-    coordinates: {
+        },
+        coordinates: {
             type: [Number],
             required: true
-    }
+        }
     }
 });
+
 
 //Mongoose middleware
 listingSchema.post("findOneAndDelete", async(listing) => {
@@ -65,6 +88,7 @@ listingSchema.post("findOneAndDelete", async(listing) => {
         await Review.deleteMany({_id: {$in: listing.reviews}});
     }
 });
+
 
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;
