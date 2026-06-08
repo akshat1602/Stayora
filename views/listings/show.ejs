@@ -45,18 +45,13 @@
                     </div>
                 </div>
 
-                <!-- Wishlist button:
-                     show only when user is logged in
-                     and user is NOT the owner of the listing -->
                 <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
                     <div class="wishlist-btn-wrapper mb-3">
                         <% if (isWishlisted) { %>
-                            <!-- If already saved, show remove button -->
                             <form method="POST" action="/listings/<%= listing._id %>/wishlist?_method=DELETE">
                                 <button class="btn btn-dark">Remove from Wishlist</button>
                             </form>
                         <% } else { %>
-                            <!-- If not saved, show add button -->
                             <form method="POST" action="/listings/<%= listing._id %>/wishlist">
                                 <button class="btn btn-outline-dark">Save to Wishlist</button>
                             </form>
@@ -64,7 +59,6 @@
                     </div>
                 <% } %>
 
-                <!-- Owner controls -->
                 <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
                     <div class="btns">
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
@@ -82,13 +76,72 @@
                 <div class="card show-inner-card">
                     <div class="card-body">
 
+                        <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
+                            <div class="booking-box mb-4">
+                                <h4>Book this stay</h4>
+                                <p class="text-muted mb-3">
+                                    Select your stay dates to check availability.
+                                </p>
+
+                                <form action="/listings/<%= listing._id %>/bookings" method="POST">
+                                    <div class="mb-3">
+                                        <label for="checkIn" class="form-label">Check-in</label>
+                                        <input
+                                            type="date"
+                                            id="checkIn"
+                                            name="checkIn"
+                                            class="form-control"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="checkOut" class="form-label">Check-out</label>
+                                        <input
+                                            type="date"
+                                            id="checkOut"
+                                            name="checkOut"
+                                            class="form-control"
+                                            required
+                                        >
+                                    </div>
+
+                                    <button class="btn btn-dark w-100">Reserve</button>
+                                </form>
+
+                                <% if (listing.bookings && listing.bookings.length > 0) { %>
+                                    <div class="booked-dates-note mt-3">
+                                        <p class="mb-2"><b>Booked dates unavailable:</b></p>
+                                        <ul class="mb-0 ps-3">
+                                            <% listing.bookings.forEach((booking) => { %>
+                                                <li>
+                                                    <%= new Date(booking.checkIn).toLocaleDateString("en-IN", {
+                                                        day: "numeric",
+                                                        month: "short",
+                                                        year: "numeric"
+                                                    }) %>
+                                                    -
+                                                    <%= new Date(booking.checkOut).toLocaleDateString("en-IN", {
+                                                        day: "numeric",
+                                                        month: "short",
+                                                        year: "numeric"
+                                                    }) %>
+                                                </li>
+                                            <% }) %>
+                                        </ul>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <hr>
+                        <% } %>
+
                         <% if (currUser) { %>
                             <hr class="my-4 review-sep">
                             <h4>Leave a Review</h4>
 
                             <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
 
-                                <!-- Starability implementation -->
                                 <div class="mb-3 mt-3">
                                     <label for="rating" class="form-label">Rating</label>
 
@@ -123,7 +176,6 @@
                             <hr>
                         <% } %>
 
-                        <!-- Review cards -->
                         <% if (listing.reviews.length > 0) { %>
                             <div class="review-section">
                                 <p><b>All Reviews</b></p>
@@ -162,6 +214,24 @@
         </aside>
     </div>
 </div>
+
+<script>
+    const today = new Date().toISOString().split("T")[0];
+    const checkInInput = document.getElementById("checkIn");
+    const checkOutInput = document.getElementById("checkOut");
+
+    if (checkInInput && checkOutInput) {
+        checkInInput.min = today;
+        checkOutInput.min = today;
+
+        checkInInput.addEventListener("change", function () {
+            checkOutInput.min = this.value;
+            if (checkOutInput.value && checkOutInput.value <= this.value) {
+                checkOutInput.value = "";
+            }
+        });
+    }
+</script>
 
 <!-- For maps -->
 <script src="/JS/map.js"></script>

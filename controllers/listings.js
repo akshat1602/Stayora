@@ -6,6 +6,7 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 
+
 //Index Route
 module.exports.index = async (req, res) => {
     let { q, search, category, minPrice, maxPrice, sort } = req.query;
@@ -66,10 +67,12 @@ module.exports.index = async (req, res) => {
 };
 
 
+
 //New Route
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs", { listing: {}, error: null });
 };
+
 
 
 //Show Route
@@ -77,7 +80,8 @@ module.exports.showListing = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id)
         .populate({ path: "reviews", populate: { path: "author" } })
-        .populate("owner");
+        .populate("owner")
+        .populate("bookings");
 
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
@@ -96,6 +100,7 @@ module.exports.showListing = async (req, res) => {
 
     res.render("listings/show.ejs", { listing, isWishlisted });
 };
+
 
 
 //Create Route
@@ -134,6 +139,7 @@ module.exports.createListing = async (req, res, next) => {
 };
 
 
+
 //Edit Route
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
@@ -154,6 +160,7 @@ module.exports.renderEditForm = async (req, res) => {
 
     res.render("listings/edit.ejs", { listing, originalImageUrl, error: null });
 };
+
 
 
 //Update Route
@@ -199,6 +206,7 @@ module.exports.updateListing = async (req, res) => {
     req.flash("success", "Listing updated!");
     res.redirect("/listings");
 };
+
 
 
 //Delete Route
