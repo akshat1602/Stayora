@@ -193,15 +193,8 @@
             <i class="fa-solid fa-book-atlas"></i>
         </a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -214,13 +207,10 @@
 
             <!-- Search Bar -->
             <div class="search-form-wrapper ms-auto">
-                <form class="search-form" role="search">
-                    <input
-                        class="form-control search-inp"
-                        type="search"
-                        placeholder="Search destinations"
+                <form class="search-form" role="search" method="GET" action="/listings">
+                    <input class="form-control search-inp" type="search" name="q" placeholder="Search destinations"
                         aria-label="Search destinations"
-                    />
+                        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" />
                     <button class="btn search-btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass-location"></i>Search
                     </button>
@@ -234,12 +224,12 @@
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link" href="/login"><b>Log in</b></a>
-                <% } %>
+                    <% } %>
 
-                <% if(currUser) { %>
-                    <a class="nav-link" href="/listings/wishlist">Wishlist</a>
-                    <a class="nav-link" href="/logout"><b>Log out</b></a>
-                <% } %>
+                        <% if(currUser) { %>
+                            <a class="nav-link" href="/listings/wishlist">Wishlist</a>
+                            <a class="nav-link" href="/logout"><b>Log out</b></a>
+                            <% } %>
             </div>
         </div>
     </div>

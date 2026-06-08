@@ -67,6 +67,29 @@
         color: #555555;
     }
 
+    .results-summary {
+        max-width: 1120px;
+        margin: 0.25rem auto 0.75rem;
+        padding: 0 0.1rem;
+    }
+
+    .results-summary h5 {
+        margin-bottom: 0.2rem;
+        color: #222222;
+        font-weight: 600;
+    }
+
+    .results-summary p {
+        margin-bottom: 0;
+        color: #6b6b6b;
+        font-size: 0.95rem;
+    }
+
+    .results-summary a {
+        color: #222222;
+        font-weight: 500;
+    }
+
     .filters-toolbar {
         display: flex;
         justify-content: space-between;
@@ -209,12 +232,27 @@
     }
 
     .empty-state-box {
+        max-width: 1120px;
         background: #ffffff;
         border: 1px solid #e5e5e5;
         border-radius: 1rem;
         padding: 1.25rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin: 1rem auto;
+    }
+
+    .empty-state-box h5 {
+        margin-bottom: 0.45rem;
+        font-weight: 600;
+        color: #222222;
+    }
+
+    .empty-state-box p {
+        margin-bottom: 0.85rem;
+        color: #666666;
+    }
+
+    .empty-state-box a {
+        font-weight: 500;
     }
 
     @media (min-width: 992px) {
@@ -241,6 +279,10 @@
         .search-filter-box {
             padding: 0.85rem;
             border-radius: 1.1rem;
+        }
+
+        .results-summary {
+            margin: 0.2rem auto 0.65rem;
         }
 
         .filters-toolbar {
@@ -358,6 +400,24 @@
     </div>
 </form>
 
+<% const hasActiveSearch = filters && filters.search && filters.search.trim() !== ""; %>
+<% const hasOtherFilters = filters && ((filters.category && filters.category.trim() !== "") || filters.minPrice || filters.maxPrice || filters.sort); %>
+
+<% if (hasActiveSearch || hasOtherFilters) { %>
+    <div class="results-summary">
+        <% if (hasActiveSearch) { %>
+            <h5>Results for "<%= filters.search %>"</h5>
+        <% } else { %>
+            <h5>Filtered listings</h5>
+        <% } %>
+
+        <p>
+            <%= allListings.length %> listing<%= allListings.length === 1 ? "" : "s" %> found.
+            <a href="/listings">Clear all filters</a>
+        </p>
+    </div>
+<% } %>
+
 <div class="filters-toolbar">
     <!-- Various categories : future updates with backend** -->
     <div id="filters">
@@ -420,8 +480,14 @@
 
 <% if(allListings.length === 0) { %>
     <div class="empty-state-box">
-        <h5 class="mb-2">No listings found</h5>
-        <p class="mb-0">Try changing your search or filter values.</p>
+        <% if (hasActiveSearch) { %>
+            <h5>No listings found for "<%= filters.search %>"</h5>
+            <p>Try a different keyword, remove some filters, or browse all listings instead.</p>
+        <% } else { %>
+            <h5>No listings found</h5>
+            <p>Try changing your search or filter values.</p>
+        <% } %>
+        <a href="/listings" class="btn btn-outline-dark btn-sm">Browse all listings</a>
     </div>
 <% } %>
 
