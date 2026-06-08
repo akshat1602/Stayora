@@ -30,6 +30,32 @@
         font-weight: 600;
     }
 
+    .wishlist-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .wishlist-badge {
+        position: absolute;
+        top: 0.2rem;
+        right: -0.15rem;
+        transform: translate(50%, -35%);
+        min-width: 1.15rem;
+        height: 1.15rem;
+        padding: 0 0.32rem;
+        border-radius: 999px;
+        background: #fe424d;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+
     .search-form {
         display: flex;
         align-items: center;
@@ -166,6 +192,18 @@
             border-bottom: none;
         }
 
+        .wishlist-link {
+            display: inline-flex !important;
+            width: auto !important;
+            padding-right: 1.8rem !important;
+        }
+
+        .wishlist-badge {
+            right: 0.15rem;
+            top: 0.8rem;
+            transform: none;
+        }
+
         .search-form {
             flex-direction: column;
             align-items: stretch;
@@ -185,6 +223,7 @@
         }
     }
 </style>
+
 
 <nav class="navbar navbar-expand-md border-bottom sticky-top" aria-label="Main navigation">
     <div class="container-fluid">
@@ -224,12 +263,17 @@
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link" href="/login"><b>Log in</b></a>
-                    <% } %>
+                <% } %>
 
-                        <% if(currUser) { %>
-                            <a class="nav-link" href="/listings/wishlist">Wishlist</a>
-                            <a class="nav-link" href="/logout"><b>Log out</b></a>
-                            <% } %>
+                <% if(currUser) { %>
+                    <a class="nav-link wishlist-link" href="/listings/wishlist">
+                        Wishlist
+                        <% if (typeof wishlistCount !== "undefined" && wishlistCount > 0) { %>
+                            <span class="wishlist-badge"><%= wishlistCount %></span>
+                        <% } %>
+                    </a>
+                    <a class="nav-link" href="/logout"><b>Log out</b></a>
+                <% } %>
             </div>
         </div>
     </div>
