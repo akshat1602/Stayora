@@ -1,6 +1,6 @@
 # Stayora
 
-Stayora is a full-stack Airbnb-inspired rental listing web application built with Node.js, Express.js, MongoDB Atlas, EJS, Passport, Mapbox, Cloudinary, and Bootstrap. It allows users to explore listings, create and manage properties, leave reviews, and authenticate securely.
+Stayora is a full-stack Airbnb-inspired rental listing web application built with Node.js, Express.js, MongoDB Atlas, EJS, Passport.js, Mapbox, Cloudinary, and Bootstrap. It allows users to discover stays, search and filter listings, save favorites to a wishlist, book available dates, leave reviews, and manage their own property listings.
 
 ## Live Demo
 
@@ -8,14 +8,19 @@ Stayora is a full-stack Airbnb-inspired rental listing web application built wit
 
 ## Features
 
-- User authentication with Passport.js
+- Secure user authentication with Passport.js
 - Create, edit, and delete property listings
-- Add and manage reviews and ratings
-- Interactive maps with Mapbox
-- Image upload and hosting with Cloudinary
+- Upload and manage listing images with Cloudinary
+- Interactive location maps with Mapbox
+- Add and delete reviews with star ratings
+- Wishlist feature to save favorite listings
+- Real backend search by title, location, and country
+- Filters for category, minimum price, maximum price, and sorting
+- Category filter state preservation with existing search and filter params
+- Booking feature with date availability validation
+- Unavailable booked dates shown on listing pages
 - Flash messages and session management
-- MongoDB Atlas database integration
-- Responsive UI with Bootstrap
+- Responsive UI with Bootstrap and custom CSS
 
 ## Tech Stack
 
@@ -23,15 +28,26 @@ Stayora is a full-stack Airbnb-inspired rental listing web application built wit
 - **Database:** MongoDB Atlas, Mongoose
 - **Frontend:** EJS, Bootstrap, CSS
 - **Authentication:** Passport.js, passport-local, passport-local-mongoose
-- **Maps:** Mapbox GL JS
-- **Image Hosting:** Cloudinary
+- **Maps & Geocoding:** Mapbox GL JS, Mapbox SDK
+- **Image Hosting:** Cloudinary, Multer, Multer-Storage-Cloudinary
 - **Session Store:** connect-mongo
 - **Deployment:** Render
+
+## Core Modules
+
+- **Authentication:** Signup, login, logout, route protection
+- **Listings:** Full CRUD for rental properties
+- **Reviews:** Add ratings and comments for listings
+- **Wishlist:** Save and remove favorite stays
+- **Search & Filters:** Search by keywords and refine results with filters
+- **Bookings:** Reserve listings with date conflict prevention
+- **Maps:** Geocoded listing locations with interactive map display
 
 ## Project Structure
 
 ```bash
 Stayora/
+│── controllers/
 │── models/
 │── routes/
 │── views/
@@ -57,7 +73,7 @@ Stayora/
    npm install
    ```
 
-3. Create a `.env` file and add the required environment variables:
+3. Create a `.env` file in the root directory and add:
    ```env
    ATLASDB_URL=your_mongodb_connection_string
    SECRET=your_session_secret
@@ -72,25 +88,40 @@ Stayora/
    nodemon app.js
    ```
 
-5. Open in browser:
-   ```
+5. Open the app in your browser:
+   ```bash
    http://localhost:8080
    ```
 
 ## Environment Variables
 
-Make sure the following variables are configured in your `.env` file:
+The project requires these environment variables:
 
-- `ATLASDB_URL`
-- `SECRET`
-- `CLOUD_NAME`
-- `CLOUD_API_KEY`
-- `CLOUD_API_SECRET`
-- `MAP_TOKEN`
+- `ATLASDB_URL` — MongoDB Atlas connection string
+- `SECRET` — session secret
+- `CLOUD_NAME` — Cloudinary cloud name
+- `CLOUD_API_KEY` — Cloudinary API key
+- `CLOUD_API_SECRET` — Cloudinary API secret
+- `MAP_TOKEN` — Mapbox access token
+
+## Screens to Highlight
+
+For portfolio presentation, these are the best pages to showcase:
+
+- Home page with search and filters
+- Listing detail page with map, reviews, wishlist, and booking section
+- New listing form
+- Edit listing form
+- Wishlist page
+- Auth pages
+
+## Why this project matters
+
+Stayora was built as a portfolio-ready full-stack project to demonstrate practical web development skills across authentication, CRUD operations, server-side rendering, database relationships, third-party API integration, image hosting, search/filter UX, and booking validation.
 
 ## Author
 
-Developed by **Akshat**.
+Developed by **Akshat Trivedi**.
 
 ## License
 
