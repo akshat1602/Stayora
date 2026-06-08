@@ -83,6 +83,20 @@ body{
 
 .listing-link{
   text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.listing-link:hover,
+.listing-link:focus,
+.listing-link:visited{
+  text-decoration: none;
+  color: inherit;
+}
+
+.listing-link .card-text,
+.listing-link .card-text b{
+  color: inherit;
 }
 
 /* CARD EFFECT */

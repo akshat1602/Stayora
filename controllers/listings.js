@@ -1,15 +1,19 @@
 const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
 const { cloudinary } = require("../cloudConfig.js");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 
+
 //Index Route
 module.exports.index = async (req, res) => {
     let { search, category, minPrice, maxPrice, sort } = req.query;
 
+
     let filter = {};
+
 
     if (search && search.trim() !== "") {
         filter.$or = [
@@ -19,23 +23,29 @@ module.exports.index = async (req, res) => {
         ];
     }
 
+
     if (category && category.trim() !== "") {
         filter.category = category;
     }
 
+
     if (minPrice || maxPrice) {
         filter.price = {};
+
 
         if (minPrice && !isNaN(minPrice)) {
             filter.price.$gte = Number(minPrice);
         }
+
 
         if (maxPrice && !isNaN(maxPrice)) {
             filter.price.$lte = Number(maxPrice);
         }
     }
 
+
     let query = Listing.find(filter);
+
 
     if (sort === "price_asc") {
         query = query.sort({ price: 1 });
@@ -45,7 +55,9 @@ module.exports.index = async (req, res) => {
         query = query.sort({ _id: -1 });
     }
 
+
     const allListings = await query;
+
 
     res.render("listings/index.ejs", {
         allListings,
@@ -59,21 +71,40 @@ module.exports.index = async (req, res) => {
     });
 };
 
+
 //New Route
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs", { listing: {}, error: null });
 };
 
+
 //Show Route
 module.exports.showListing = async(req, res) => {
     let {id} = req.params;
-    const listing = await Listing.findById(id).populate({path: "reviews", populate: {path: "author"}}).populate("owner");
+    const listing = await Listing.findById(id)
+        .populate({ path: "reviews", populate: { path: "author" } })
+        .populate("owner");
+
     if(!listing){
         req.flash("error", "Listing you requested for does not exist!");
         return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", {listing});
+
+    let isWishlisted = false;
+
+    // Check wishlist only if a user is logged in
+    if (req.user) {
+        const user = await User.findById(req.user._id);
+
+        // Compare ObjectIds safely by converting them to strings
+        isWishlisted = user.wishlist.some(
+            (wishlistId) => wishlistId.toString() === listing._id.toString()
+        );
+    }
+
+    res.render("listings/show.ejs", { listing, isWishlisted });
 };
+
 
 //Create Route
 module.exports.createListing = async (req, res, next) => {
@@ -84,10 +115,12 @@ module.exports.createListing = async (req, res, next) => {
     })
     .send()
 
+
     if (!response.body.features.length) {
         req.flash("error", "Could not find that location on the map.");
         return res.redirect("/listings/new");
     }
+
 
     if (!req.file) {
         req.flash("error", "Please upload an image for the listing.");
@@ -100,12 +133,15 @@ module.exports.createListing = async (req, res, next) => {
     newListing.owner = req.user._id;
     newListing.image = { url: imageUrl, filename: imageId };
 
+
     newListing.geometry = response.body.features[0].geometry; //saving coordinates in DB
+
 
     let savedListing = await newListing.save();
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
 };
+
 
 //Edit Route
 module.exports.renderEditForm = async (req, res) => {
@@ -125,8 +161,10 @@ module.exports.renderEditForm = async (req, res) => {
         }
     }
 
+
     res.render("listings/edit.ejs", {listing, originalImageUrl, error: null});
 };
+
 
 //Update Route
 module.exports.updateListing = async (req, res) => {
@@ -137,13 +175,16 @@ module.exports.updateListing = async (req, res) => {
         limit: 1,
     }).send();
 
+
     if (!response.body.features.length) {
         req.flash("error", "Could not find that location on the map.");
         return res.redirect(`/listings/${id}/edit`);
     }
 
+
     let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing}, { runValidators: true, returnDocument: 'after', context: 'query' });
     listing.geometry = response.body.features[0].geometry;
+
 
     if (req.file) {
         // Remove previous image from Cloudinary if it exists
@@ -156,11 +197,14 @@ module.exports.updateListing = async (req, res) => {
         listing.image = { url: imageUrl, filename: imageId };
     }
 
+
     await listing.save();
+
 
     req.flash("success", "Listing updated!");
     res.redirect("/listings");
 };
+
 
 //Delete Route
 module.exports.destroyListing = async (req, res) => {
