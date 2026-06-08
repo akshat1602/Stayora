@@ -4,13 +4,21 @@
     <h2 class="mb-4">My Wishlist</h2>
 
     <% if (wishlist.length === 0) { %>
-        <p>No saved listings yet.</p>
+        <div class="wishlist-empty text-center">
+            <div class="wishlist-empty-icon">
+                <i class="fa-regular fa-heart" aria-hidden="true"></i>
+            </div>
+            <h4>No saved listings yet</h4>
+            <p>
+                Start exploring stays and save the ones you’d love to revisit.
+            </p>
+            <a href="/listings" class="btn btn-danger wishlist-empty-btn">Explore listings</a>
+        </div>
     <% } else { %>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
             <% for (let listing of wishlist) { %>
                 <div class="col">
                     <div class="card listing-card h-100">
-                        
                         <a href="/listings/<%= listing._id %>" class="listing-link">
                             <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
 
@@ -28,7 +36,6 @@
                                 <button class="btn btn-sm btn-dark">Remove</button>
                             </form>
                         </div>
-
                     </div>
                 </div>
             <% } %>
