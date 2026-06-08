@@ -403,6 +403,24 @@
 <% const hasActiveSearch = filters && filters.search && filters.search.trim() !== ""; %>
 <% const hasOtherFilters = filters && ((filters.category && filters.category.trim() !== "") || filters.minPrice || filters.maxPrice || filters.sort); %>
 
+<%
+    function buildCategoryUrl(categoryName) {
+        const params = new URLSearchParams();
+
+        if (filters && filters.search) params.set("search", filters.search);
+        if (filters && filters.minPrice) params.set("minPrice", filters.minPrice);
+        if (filters && filters.maxPrice) params.set("maxPrice", filters.maxPrice);
+        if (filters && filters.sort) params.set("sort", filters.sort);
+
+        if (!(filters && filters.category === categoryName)) {
+            params.set("category", categoryName);
+        }
+
+        const queryString = params.toString();
+        return queryString ? `/listings?${queryString}` : "/listings";
+    }
+%>
+
 <% if (hasActiveSearch || hasOtherFilters) { %>
     <div class="results-summary">
         <% if (hasActiveSearch) { %>
@@ -421,47 +439,57 @@
 <div class="filters-toolbar">
     <!-- Various categories : future updates with backend** -->
     <div id="filters">
-        <a href="/listings?category=Trending" class="filter <%= filters && filters.category === 'Trending' ? 'active-filter' : '' %>">
+        <a href="<%= buildCategoryUrl('Trending') %>" class="filter <%= filters && filters.category === 'Trending' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-fire"></i></div>
             <p>Trending</p>
         </a>
-        <a href="/listings?category=Rooms" class="filter <%= filters && filters.category === 'Rooms' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Rooms') %>" class="filter <%= filters && filters.category === 'Rooms' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-bed"></i></div>
             <p>Rooms</p>
         </a>
-        <a href="/listings?category=Iconic%20cities" class="filter <%= filters && filters.category === 'Iconic cities' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Iconic cities') %>" class="filter <%= filters && filters.category === 'Iconic cities' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-mountain-city"></i></div>
             <p>Iconic cities</p>
         </a>
-        <a href="/listings?category=Mountains" class="filter <%= filters && filters.category === 'Mountains' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Mountains') %>" class="filter <%= filters && filters.category === 'Mountains' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-mountain"></i></div>
             <p>Mountains</p>
         </a>
-        <a href="/listings?category=Castles" class="filter <%= filters && filters.category === 'Castles' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Castles') %>" class="filter <%= filters && filters.category === 'Castles' ? 'active-filter' : '' %>">
             <div><i class="fa-brands fa-fort-awesome"></i></div>
             <p>Castles</p>
         </a>
-        <a href="/listings?category=Amazing%20Pools" class="filter <%= filters && filters.category === 'Amazing Pools' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Amazing Pools') %>" class="filter <%= filters && filters.category === 'Amazing Pools' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-person-swimming"></i></div>
             <p>Amazing Pools</p>
         </a>
-        <a href="/listings?category=Camping" class="filter <%= filters && filters.category === 'Camping' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Camping') %>" class="filter <%= filters && filters.category === 'Camping' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-campground"></i></div>
             <p>Camping</p>
         </a>
-        <a href="/listings?category=Farms" class="filter <%= filters && filters.category === 'Farms' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Farms') %>" class="filter <%= filters && filters.category === 'Farms' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-tractor"></i></div>
             <p>Farms</p>
         </a>
-        <a href="/listings?category=Arctic" class="filter <%= filters && filters.category === 'Arctic' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Arctic') %>" class="filter <%= filters && filters.category === 'Arctic' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-snowflake"></i></div>
             <p>Arctic</p>
         </a>
-        <a href="/listings?category=Domes" class="filter <%= filters && filters.category === 'Domes' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Domes') %>" class="filter <%= filters && filters.category === 'Domes' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-landmark-dome"></i></div>
             <p>Domes</p>
         </a>
-        <a href="/listings?category=Beaches" class="filter <%= filters && filters.category === 'Beaches' ? 'active-filter' : '' %>">
+
+        <a href="<%= buildCategoryUrl('Beaches') %>" class="filter <%= filters && filters.category === 'Beaches' ? 'active-filter' : '' %>">
             <div><i class="fa-solid fa-umbrella-beach"></i></div>
             <p>Beaches</p>
         </a>
