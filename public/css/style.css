@@ -12,6 +12,7 @@ body {
   flex: 1;
 }
 
+
 /* NAVBAR */
 .stayora-navbar {
   background: rgba(255, 255, 255, 0.92);
@@ -178,6 +179,7 @@ body {
   box-shadow: none;
 }
 
+
 /* FOOTER */
 .f-info-links a {
   text-decoration: none;
@@ -211,6 +213,7 @@ body {
   justify-content: center;
   align-items: space-evenly;
 }
+
 
 /* CARDS */
 .listing-link {
@@ -298,6 +301,7 @@ body {
   color: inherit;
 }
 
+
 /* WISHLIST EMPTY STATE */
 .wishlist-empty {
   max-width: 520px;
@@ -340,6 +344,7 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
+
 
 /* NEW LISTING PAGE */
 .add-btn {
@@ -390,6 +395,7 @@ body {
   min-width: 160px;
 }
 
+
 /* EDIT PAGE */
 .edit-btn {
   background-color: #fe424d !important;
@@ -439,6 +445,7 @@ body {
   min-width: 160px;
 }
 
+
 /* SHOW PAGE */
 .show-wrapper {
   display: flex;
@@ -466,6 +473,19 @@ body {
   margin-bottom: 1rem;
   line-height: 1.25;
   font-weight: 600;
+}
+
+.show-header {
+  margin-bottom: 1rem;
+}
+
+.show-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #6b6b6b;
+  margin-bottom: 0;
+  font-size: 0.97rem;
 }
 
 .show-img {
@@ -503,6 +523,51 @@ body {
   line-height: 1.5;
 }
 
+.show-meta-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.show-price {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.show-price-unit {
+  color: #6b6b6b;
+  font-size: 0.98rem;
+}
+
+.show-host-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.show-label {
+  color: #6b6b6b;
+  font-weight: 500;
+}
+
+.show-host-name {
+  font-weight: 700;
+  color: #222222;
+}
+
+.show-description {
+  line-height: 1.75 !important;
+  color: #333333;
+}
+
+.wishlist-action-btn {
+  border-radius: 999px !important;
+  padding: 0.72rem 1.15rem !important;
+}
+
 .btns {
   display: flex;
   gap: 0.9rem;
@@ -528,13 +593,88 @@ body {
   margin-bottom: 0.85rem;
 }
 
+.review-summary-box {
+  border: 1px solid #ececec;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.review-summary-box h4 {
+  margin-bottom: 0.9rem;
+}
+
+.review-summary-items {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.review-summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.review-summary-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-label {
+  color: #6b6b6b;
+}
+
+.summary-value {
+  font-weight: 600;
+  text-align: right;
+}
+
+.booking-box {
+  border: 1px solid #ececec;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.booking-box h4 {
+  margin-bottom: 0.4rem;
+}
+
+.booking-btn {
+  border-radius: 0.8rem !important;
+  padding: 0.8rem 1rem !important;
+}
+
 .review-sep {
   margin-left: 0;
   margin-right: 0;
 }
 
+.review-form-box {
+  border: 1px solid #ececec;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.review-form-box h4 {
+  margin-bottom: 0.35rem;
+}
+
+.review-submit-btn {
+  border-radius: 0.8rem !important;
+  padding: 0.72rem 1.1rem !important;
+}
+
 .review-section {
   margin-top: 0.25rem;
+}
+
+.review-title {
+  margin-bottom: 0.85rem;
 }
 
 .review-row {
@@ -558,8 +698,43 @@ body {
   margin-bottom: 0.45rem;
 }
 
+.review-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.review-comment {
+  color: #333333;
+  line-height: 1.65;
+}
+
 .review-card .card-text:last-of-type {
   margin-bottom: 0.85rem;
+}
+
+.review-delete-btn {
+  border-radius: 999px !important;
+  padding-left: 0.9rem !important;
+  padding-right: 0.9rem !important;
+}
+
+.review-empty-state {
+  border: 1px dashed #dddddd;
+  border-radius: 1rem;
+  padding: 1.2rem 1rem;
+  background: #fcfcfc;
+}
+
+.review-empty-state h5 {
+  margin-bottom: 0.4rem;
+}
+
+.review-empty-state p {
+  margin-bottom: 0;
+  color: #6b6b6b;
 }
 
 .booked-dates-note {
@@ -589,6 +764,7 @@ body {
   margin-bottom: 0;
 }
 
+
 /* MAP */
 .map-wrapper {
   width: 100%;
@@ -609,6 +785,7 @@ body {
   display: block;
   box-sizing: border-box;
 }
+
 
 /* MOBILE */
 @media (max-width: 767px) {
@@ -700,7 +877,7 @@ body {
     gap: 0.35rem;
   }
 
-  .search-btn span{
+  .search-btn span {
     display: none;
   }
 
@@ -777,12 +954,24 @@ body {
     margin-bottom: 0.85rem;
   }
 
+  .show-subtitle {
+    font-size: 0.92rem;
+  }
+
   .show-img {
     height: 250px;
   }
 
   .show-main .card-body {
     padding-top: 0.7rem !important;
+  }
+
+  .show-meta-top {
+    flex-wrap: wrap;
+  }
+
+  .show-price {
+    font-size: 1.28rem;
   }
 
   .btns {
@@ -795,6 +984,21 @@ body {
   .btns form,
   .btns button {
     width: 100%;
+  }
+
+  .review-summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .summary-value {
+    text-align: left;
+  }
+
+  .review-card-top {
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   .review-card .card-body {
@@ -833,6 +1037,7 @@ body {
     padding: 0.9rem 0.9rem 0.95rem 0.9rem !important;
   }
 }
+
 
 /* TABLET + DESKTOP */
 @media (min-width: 768px) {
