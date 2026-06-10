@@ -1,278 +1,66 @@
-<style>
-    .navbar {
-        background-color: #fff;
-        padding: 0.75rem 1rem;
-    }
-
-    .navbar-brand {
-        font-size: 1.5rem;
-        color: #fe424d !important;
-        display: flex;
-        align-items: center;
-    }
-
-    .navbar-brand i {
-        font-size: 1.8rem;
-    }
-
-    .nav-link {
-        color: #222222 !important;
-        font-size: 1rem;
-        padding: 0.55rem 0.85rem !important;
-        transition: color 0.2s ease;
-    }
-
-    .nav-link:hover {
-        color: #fe424d !important;
-    }
-
-    .nav-link b {
-        font-weight: 600;
-    }
-
-    .wishlist-link {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-    }
-
-    .wishlist-badge {
-        position: absolute;
-        top: 0.2rem;
-        right: -0.15rem;
-        transform: translate(50%, -35%);
-        min-width: 1.15rem;
-        height: 1.15rem;
-        padding: 0 0.32rem;
-        border-radius: 999px;
-        background: #fe424d;
-        color: #fff;
-        font-size: 0.7rem;
-        font-weight: 700;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-    }
-
-    .search-form {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
-    }
-
-    .search-inp {
-        border-radius: 999px;
-        padding: 0.7rem 1rem;
-        font-size: 0.95rem;
-        min-height: 44px;
-        border: 1px solid #dcdcdc;
-        box-shadow: none !important;
-    }
-
-    .search-inp:focus {
-        border-color: #fe424d;
-        box-shadow: 0 0 0 0.15rem rgba(254, 66, 77, 0.15) !important;
-    }
-
-    .search-btn {
-        background-color: #fe424d;
-        color: white;
-        border-radius: 999px;
-        padding: 0.7rem 1rem;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        white-space: nowrap;
-    }
-
-    .search-btn:hover {
-        background-color: #e63946;
-        color: white;
-    }
-
-    .search-btn i {
-        display: inline;
-        margin-right: 0.5rem;
-    }
-
-    .navbar-toggler {
-        border-radius: 14px;
-        padding: 0.5rem 0.75rem;
-        min-width: 44px;
-        min-height: 44px;
-        border: 1px solid #dcdcdc;
-        box-shadow: none !important;
-    }
-
-    .navbar-toggler:focus {
-        box-shadow: none;
-    }
-
-    .navbar-collapse {
-        transition: all 0.3s ease;
-    }
-
-    @media (min-width: 768px) {
-        .navbar .container-fluid {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .navbar-collapse {
-            display: flex !important;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .navbar-nav {
-            align-items: center;
-        }
-
-        .search-form {
-            width: auto;
-        }
-
-        .search-inp {
-            width: 18rem;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .navbar {
-            padding: 0.6rem 0.8rem;
-        }
-
-        .navbar .container-fluid {
-            position: relative;
-        }
-
-        .navbar-collapse {
-            position: absolute;
-            top: calc(100% + 0.4rem);
-            left: 0.5rem;
-            width: calc(100% - 1rem);
-            background: #fff;
-            z-index: 1000;
-            padding: 1rem 1rem 1.25rem;
-            border: 1px solid #eeeeee;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-            border-radius: 1rem;
-        }
-
-        .navbar-nav {
-            margin-bottom: 0.35rem;
-        }
-
-        .navbar-nav.ms-auto {
-            margin-left: 0 !important;
-        }
-
-        .navbar-collapse .navbar-nav,
-        .navbar-collapse .search-form-wrapper,
-        .navbar-collapse form {
-            width: 100%;
-        }
-
-        .navbar-collapse .nav-link {
-            display: block;
-            width: 100%;
-            padding: 0.9rem 0 !important;
-            font-size: 1rem;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        .navbar-collapse .navbar-nav:last-of-type .nav-link:last-child {
-            border-bottom: none;
-        }
-
-        .wishlist-link {
-            display: inline-flex !important;
-            width: auto !important;
-            padding-right: 1.8rem !important;
-        }
-
-        .wishlist-badge {
-            right: 0.15rem;
-            top: 0.8rem;
-            transform: none;
-        }
-
-        .search-form {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0.75rem;
-            margin: 0.75rem 0 1rem 0;
-        }
-
-        .search-inp {
-            width: 100%;
-            margin-right: 0 !important;
-            padding: 0.8rem 1rem;
-        }
-
-        .search-btn {
-            width: 100%;
-            padding: 0.8rem 1rem;
-        }
-    }
-</style>
-
-
-<nav class="navbar navbar-expand-md border-bottom sticky-top" aria-label="Main navigation">
-    <div class="container-fluid">
-        <!-- Icon used -->
-        <a class="navbar-brand" href="/listings">
+<nav class="navbar navbar-expand-md border-bottom sticky-top stayora-navbar" aria-label="Main navigation">
+    <div class="container-fluid stayora-nav-wrap">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand stayora-brand" href="/listings">
             <i class="fa-solid fa-book-atlas"></i>
+            <span>Stayora</span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Mobile Toggler -->
+        <button
+            class="navbar-toggler stayora-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse stayora-navbar-collapse" id="navbarNavAltMarkup">
 
             <!-- Left side of navbar -->
-            <div class="navbar-nav">
-                <a class="nav-link" href="/listings">Explore</a>
+            <div class="navbar-nav stayora-nav-left">
+                <a class="nav-link stayora-nav-link" href="/listings">Explore</a>
             </div>
 
             <!-- Search Bar -->
-            <div class="search-form-wrapper ms-auto">
+            <div class="stayora-search-wrap ms-auto">
                 <form class="search-form" role="search" method="GET" action="/listings">
-                    <input class="form-control search-inp" type="search" name="q" placeholder="Search destinations"
+                    <input
+                        class="form-control search-inp"
+                        type="search"
+                        name="search"
+                        placeholder="Search destinations"
                         aria-label="Search destinations"
-                        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" />
+                        value="<%= typeof filters !== 'undefined' && filters.search ? filters.search : '' %>"
+                    />
                     <button class="btn search-btn" type="submit">
-                        <i class="fa-solid fa-magnifying-glass-location"></i>Search
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                        <span>Search</span>
                     </button>
                 </form>
             </div>
 
             <!-- Right side of navbar -->
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/listings/new">Stayora your home</a>
+            <div class="navbar-nav stayora-nav-right ms-auto">
+                <a class="nav-link stayora-nav-link host-link" href="/listings/new">Stayora your home</a>
 
                 <% if(!currUser) { %>
-                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
-                    <a class="nav-link" href="/login"><b>Log in</b></a>
+                    <a class="nav-link stayora-nav-link" href="/signup"><b>Sign up</b></a>
+                    <a class="nav-link stayora-nav-link" href="/login"><b>Log in</b></a>
                 <% } %>
 
                 <% if(currUser) { %>
-                    <a class="nav-link wishlist-link" href="/listings/wishlist">
-                        Wishlist
+                    <a class="nav-link stayora-nav-link wishlist-link" href="/listings/wishlist">
+                        <span>Wishlist</span>
                         <% if (typeof wishlistCount !== "undefined" && wishlistCount > 0) { %>
                             <span class="wishlist-badge"><%= wishlistCount %></span>
                         <% } %>
                     </a>
-                    <a class="nav-link" href="/logout"><b>Log out</b></a>
+                    <a class="nav-link stayora-nav-link" href="/logout"><b>Log out</b></a>
                 <% } %>
             </div>
         </div>
