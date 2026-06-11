@@ -13,9 +13,24 @@ module.exports.createBooking = async (req, res) => {
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
 
+    if (
+        Number.isNaN(checkInDate.getTime()) ||
+        Number.isNaN(checkOutDate.getTime())
+    ) {
+        req.flash("error", "Please enter valid booking dates.");
+        return res.redirect(`/listings/${id}`);
+    }
+
     if (checkInDate >= checkOutDate) {
         req.flash("error", "Check-out date must be after check-in date.");
         return res.redirect(`/listings/${id}`);
+    }
+
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+        req.flash("error", "Listing you requested for does not exist!");
+        return res.redirect("/listings");
     }
 
     const overlappingBooking = await Booking.findOne({

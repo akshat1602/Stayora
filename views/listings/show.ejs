@@ -6,12 +6,17 @@
     const listingData = <%- JSON.stringify(listing) %>;
 </script>
 
+<%
+    const safeReviews = Array.isArray(listing.reviews) ? listing.reviews : [];
+    const safeBookings = Array.isArray(listing.bookings) ? listing.bookings : [];
+    const listingImageUrl = listing.image && (listing.image.url || listing.image.secure_url || listing.image.path || listing.image);
+    const isOwner = currUser && listing.owner && listing.owner._id.equals(currUser._id);
+%>
+
 <div class="show-wrapper mt-3">
     <div class="show-grid">
         <div class="show-main">
             <div class="show-content">
-                <% const listingImageUrl = listing.image && (listing.image.url || listing.image.secure_url || listing.image.path || listing.image); %>
-
                 <div class="show-header">
                     <h3><%= listing.title %></h3>
                     <p class="show-subtitle">
@@ -44,7 +49,7 @@
                     </div>
                 </div>
 
-                <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
+                <% if (currUser && !isOwner) { %>
                     <div class="wishlist-btn-wrapper mb-3">
                         <% if (isWishlisted) { %>
                             <form method="POST" action="/listings/<%= listing._id %>/wishlist?_method=DELETE">
@@ -58,7 +63,7 @@
                     </div>
                 <% } %>
 
-                <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+                <% if (isOwner) { %>
                     <div class="btns">
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
 
@@ -91,7 +96,7 @@
                                 </div>
                                 <div class="review-summary-item">
                                     <span class="summary-label">Reviews</span>
-                                    <span class="summary-value"><%= listing.reviews.length %> total</span>
+                                    <span class="summary-value"><%= safeReviews.length %> total</span>
                                 </div>
                                 <div class="review-summary-item">
                                     <span class="summary-label">Location</span>
@@ -100,7 +105,7 @@
                             </div>
                         </div>
 
-                        <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
+                        <% if (currUser && !isOwner) { %>
                             <div class="booking-box mb-4">
                                 <div class="booking-box-head">
                                     <h4>Book this stay</h4>
@@ -141,11 +146,11 @@
                                     <button class="btn btn-dark w-100 booking-btn">Reserve</button>
                                 </form>
 
-                                <% if (listing.bookings && listing.bookings.length > 0) { %>
+                                <% if (safeBookings.length > 0) { %>
                                     <div class="booked-dates-note mt-3">
                                         <p class="mb-2"><b>Booked dates unavailable:</b></p>
                                         <ul class="mb-0 ps-3">
-                                            <% listing.bookings.forEach((booking) => { %>
+                                            <% safeBookings.forEach((booking) => { %>
                                                 <li>
                                                     <%= new Date(booking.checkIn).toLocaleDateString("en-IN", {
                                                         day: "numeric",
@@ -162,14 +167,17 @@
                                             <% }) %>
                                         </ul>
                                     </div>
+                                <% } else { %>
+                                    <div class="booked-dates-note mt-3">
+                                        <p class="mb-0">No dates are booked yet for this stay.</p>
+                                    </div>
                                 <% } %>
                             </div>
 
-                            <hr>
+                            <hr class="my-4 review-sep">
                         <% } %>
 
                         <% if (currUser) { %>
-                            <hr class="my-4 review-sep">
                             <div class="review-form-box">
                                 <div class="review-form-head">
                                     <h4>Leave a Review</h4>
@@ -178,8 +186,7 @@
                                     </p>
                                 </div>
 
-                                <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation stayora-form review-form">
-
+                                <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation stayora-form review-form">
                                     <div class="mb-3 mt-3">
                                         <label for="rating" class="form-label">Rating</label>
 
@@ -200,12 +207,21 @@
                                             <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                                             <label for="first-rate5" title="Amazing">5 stars</label>
                                         </fieldset>
+
                                         <div class="form-helper-text">Choose a rating before submitting your review.</div>
                                     </div>
 
                                     <div class="mb-3 mt-3">
                                         <label for="comment" class="form-label">Comments</label>
-                                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control review-textarea" required placeholder="Share what you liked about this stay"></textarea>
+                                        <textarea
+                                            name="review[comment]"
+                                            id="comment"
+                                            cols="30"
+                                            rows="5"
+                                            class="form-control review-textarea"
+                                            required
+                                            placeholder="Share what you liked about this stay"
+                                        ></textarea>
                                         <div class="invalid-feedback">Please add some comments for review.</div>
                                     </div>
 
@@ -213,15 +229,16 @@
                                 </form>
                             </div>
 
-                            <hr>
+                            <hr class="my-4 review-sep">
                         <% } %>
 
-                        <% if (listing.reviews.length > 0) { %>
+                        <% if (safeReviews.length > 0) { %>
                             <div class="review-section">
                                 <p class="review-title"><b>Guest Reviews</b></p>
 
                                 <div class="row g-3 review-row">
-                                    <% for (let review of listing.reviews) { %>
+                                    <% for (let review of safeReviews) { %>
+                                        <% const canDeleteReview = currUser && review.author && (review.author._id.equals(currUser._id) || isOwner); %>
                                         <div class="col-12">
                                             <div class="card review-card h-100">
                                                 <div class="card-body">
@@ -234,9 +251,11 @@
                                                         <%= review.comment %>
                                                     </p>
 
-                                                    <form class="mb-0" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                        <button class="btn btn-sm btn-dark review-delete-btn">Delete</button>
-                                                    </form>
+                                                    <% if (canDeleteReview) { %>
+                                                        <form class="mb-0" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                            <button class="btn btn-sm btn-dark review-delete-btn">Delete</button>
+                                                        </form>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -277,5 +296,4 @@
     }
 </script>
 
-<!-- For maps -->
 <script src="/JS/map.js"></script>

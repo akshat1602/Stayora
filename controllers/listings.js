@@ -5,8 +5,6 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-
-
 //Index Route
 module.exports.index = async (req, res) => {
     let { q, search, category, minPrice, maxPrice, sort } = req.query;
@@ -39,6 +37,10 @@ module.exports.index = async (req, res) => {
         if (maxPrice && !isNaN(maxPrice)) {
             filter.price.$lte = Number(maxPrice);
         }
+
+        if (Object.keys(filter.price).length === 0) {
+            delete filter.price;
+        }
     }
 
     let query = Listing.find(filter);
@@ -52,10 +54,17 @@ module.exports.index = async (req, res) => {
     }
 
     const allListings = await query;
+    const hasActiveFilters =
+        rawSearch !== "" ||
+        (category && category.trim() !== "") ||
+        (minPrice && !isNaN(minPrice)) ||
+        (maxPrice && !isNaN(maxPrice)) ||
+        (sort && sort.trim() !== "");
 
     res.render("listings/index.ejs", {
         allListings,
         searchQuery: rawSearch,
+        hasActiveFilters,
         filters: {
             search: rawSearch,
             category: category || "",
@@ -66,14 +75,10 @@ module.exports.index = async (req, res) => {
     });
 };
 
-
-
 //New Route
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs", { listing: {}, error: null });
 };
-
-
 
 //Show Route
 module.exports.showListing = async (req, res) => {
@@ -98,10 +103,11 @@ module.exports.showListing = async (req, res) => {
         );
     }
 
-    res.render("listings/show.ejs", { listing, isWishlisted });
+    res.render("listings/show.ejs", {
+        listing,
+        isWishlisted
+    });
 };
-
-
 
 //Create Route
 module.exports.createListing = async (req, res, next) => {
@@ -138,8 +144,6 @@ module.exports.createListing = async (req, res, next) => {
     res.redirect("/listings");
 };
 
-
-
 //Edit Route
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
@@ -160,8 +164,6 @@ module.exports.renderEditForm = async (req, res) => {
 
     res.render("listings/edit.ejs", { listing, originalImageUrl, error: null });
 };
-
-
 
 //Update Route
 module.exports.updateListing = async (req, res) => {
@@ -206,8 +208,6 @@ module.exports.updateListing = async (req, res) => {
     req.flash("success", "Listing updated!");
     res.redirect("/listings");
 };
-
-
 
 //Delete Route
 module.exports.destroyListing = async (req, res) => {

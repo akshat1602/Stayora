@@ -13,36 +13,55 @@ const wishlistController = require("../controllers/wishlist.js");
 //***ROUTING***
 
 // Index and Create
-router.route("/")
-    .get(wrapAsync(listingController.index))
-    .post(
-        isLoggedIn,
-        upload.single("listing[image]"),
-        validateListing,
-        wrapAsync(listingController.createListing)
-    );
+router
+  .route("/")
+  .get(wrapAsync(listingController.index))
+  .post(
+    isLoggedIn,
+    upload.single("listing[image]"),
+    validateListing,
+    wrapAsync(listingController.createListing)
+  );
 
 // New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 // Wishlist Routes
-router.get("/wishlist", isLoggedIn, wrapAsync(wishlistController.renderWishlist));
-router.post("/:id/wishlist", isLoggedIn, wrapAsync(wishlistController.addToWishlist));
-router.delete("/:id/wishlist", isLoggedIn, wrapAsync(wishlistController.removeFromWishlist));
+router.get(
+  "/wishlist",
+  isLoggedIn,
+  wrapAsync(wishlistController.renderWishlist)
+);
+router.post(
+  "/:id/wishlist",
+  isLoggedIn,
+  wrapAsync(wishlistController.addToWishlist)
+);
+router.delete(
+  "/:id/wishlist",
+  isLoggedIn,
+  wrapAsync(wishlistController.removeFromWishlist)
+);
 
 // Show, Update and Delete
-router.route("/:id")
-    .get(wrapAsync(listingController.showListing))
-    .put(
-        isLoggedIn,
-        upload.single("listing[image]"),
-        validateListing,
-        isOwner,
-        wrapAsync(listingController.updateListing)
-    )
-    .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
+router
+  .route("/:id")
+  .get(wrapAsync(listingController.showListing))
+  .put(
+    isLoggedIn,
+    upload.single("listing[image]"),
+    validateListing,
+    isOwner,
+    wrapAsync(listingController.updateListing)
+  )
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
 
 // Edit Route
-router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderEditForm));
+router.get(
+  "/:id/edit",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(listingController.renderEditForm)
+);
 
 module.exports = router;

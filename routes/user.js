@@ -9,14 +9,23 @@ const userController = require("../controllers/users.js");
 //Common Routing Paths(Avoid redundancy)
 
 //SIGNUP
-router.route("/signup")
-.get(userController.renderSignupForm)
-.post(userController.signup);
+router
+  .route("/signup")
+  .get(userController.renderSignupForm)
+  .post(userController.signup);
 
 //LOGIN
-router.route("/login")
-.get(userController.renderLoginForm)
-.post(saveRedirectUrl, passport.authenticate("local", {failureRedirect: '/login', failureFlash: true}), userController.login);
+router
+  .route("/login")
+  .get(userController.renderLoginForm)
+  .post(
+    saveRedirectUrl,
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      failureFlash: true,
+    }),
+    userController.login
+  );
 
 //LOGOUT
 router.get("/logout", userController.logout);
