@@ -1,6 +1,6 @@
 # Stayora
 
-Stayora is a full-stack Airbnb-inspired rental listing web application built with Node.js, Express.js, MongoDB Atlas, EJS, Passport.js, Mapbox, Cloudinary, and Bootstrap. It allows users to discover stays, search and filter listings, save favorites to a wishlist, book available dates, leave reviews, and manage their own property listings. A strong project README should clearly explain what the project does, highlight its main features, provide a live demo, and include copy-paste-ready setup steps.[1][2][3]
+Stayora is a full-stack Airbnb-inspired rental listing web application built with Node.js, Express.js, MongoDB Atlas, EJS, Passport.js, Mapbox, Cloudinary, and Bootstrap. It allows users to discover stays, search and filter listings, save favorites to a wishlist, book available dates, leave reviews, and manage their own property listings. A strong project README should clearly explain what the project does, highlight its main features, provide a live demo, and include copy-paste-ready setup steps.
 
 ## Live Demo
 
@@ -8,7 +8,7 @@ Stayora is a full-stack Airbnb-inspired rental listing web application built wit
 
 ## Overview
 
-Stayora was built as a portfolio-ready full-stack project to demonstrate practical web development skills across authentication, CRUD operations, server-side rendering, database relationships, third-party API integration, image hosting, search and filter UX, wishlist handling, and booking validation. GitHub portfolio READMEs are strongest when they include a concise overview, a project demo, the main technologies used, and a clear explanation of the problem the project solves.[4][5][6]
+Stayora was built as a portfolio-ready full-stack project to demonstrate practical web development skills across authentication, CRUD operations, server-side rendering, database relationships, third-party API integration, image hosting, search and filter UX, wishlist handling, and booking validation. GitHub portfolio READMEs are strongest when they include a concise overview, a project demo, the main technologies used, and a clear explanation of the problem the project solves.
 
 ## Features
 
@@ -51,9 +51,9 @@ Stayora was built as a portfolio-ready full-stack project to demonstrate practic
 
 - Improved search and filter flow for a smoother browsing experience.
 - Added booking validation and unavailable date handling on listing pages.
-- Refined responsive create and edit listing forms.[7]
-- Polished empty states and UI consistency across updated screens.[7]
-- Shipped the latest updates to the live project.[7]
+- Refined responsive create and edit listing forms.
+- Polished empty states and UI consistency across updated screens.
+- Shipped the latest updates to the live project.
 
 ## Project Structure
 
@@ -72,18 +72,18 @@ Stayora/
 │── package.json
 ```
 
-Project documentation is easier to scan when it includes a short structure section showing where the main app files live.[2][6]
+Project documentation is easier to scan when it includes a short structure section showing where the main app files live.
 
 ## Screens to Highlight
 
 - Home page with search and filters.
 - Listing detail page with map, reviews, wishlist, and booking section.
-- New listing form.[7]
-- Edit listing form.[7]
+- New listing form.
+- Edit listing form.
 - Wishlist page.
 - Authentication pages.
 
-README guides for portfolio projects often recommend adding screenshots or demo visuals so visitors can quickly understand the product before running it locally.[8][4][5]
+README guides for portfolio projects often recommend adding screenshots or demo visuals so visitors can quickly understand the product before running it locally.
 
 ## Installation
 
@@ -114,7 +114,7 @@ README guides for portfolio projects often recommend adding screenshots or demo 
    http://localhost:8080
    ```
 
-Good READMEs should include clear installation steps, minimal setup friction, and copy-paste-ready commands for local development.[1][2][3]
+Good READMEs should include clear installation steps, minimal setup friction, and copy-paste-ready commands for local development.
 
 ## Environment Variables
 
@@ -127,7 +127,7 @@ The project requires these environment variables:
 - `CLOUD_API_SECRET` — Cloudinary API secret.
 - `MAP_TOKEN` — Mapbox access token.
 
-Configuration details are a recommended README section because they help others run the project without guessing missing setup values.[3][6]
+Configuration details are a recommended README section because they help others run the project without guessing missing setup values.
 
 ## Usage
 
@@ -139,7 +139,7 @@ Configuration details are a recommended README section because they help others 
 
 ## Why This Project Matters
 
-Stayora demonstrates full-stack application design beyond basic CRUD by combining authentication, media uploads, geolocation, search, filtering, wishlist flows, and booking validation in one project. Portfolio-focused GitHub projects are stronger when they explain both what was built and what skills the project proves to recruiters or collaborators.[5][6]
+Stayora demonstrates full-stack application design beyond basic CRUD by combining authentication, media uploads, geolocation, search, filtering, wishlist flows, and booking validation in one project. Portfolio-focused GitHub projects are stronger when they explain both what was built and what skills the project proves to recruiters or collaborators.
 
 ## Author
 
