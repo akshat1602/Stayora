@@ -1,7 +1,23 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <div class="alert alert-danger col-6 offset-3" role="alert">
-    <p class="alert-heading"><%= message %></p>
+<section class="error-page">
+    <div class="error-card">
+        <div class="error-badge">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span><%= statusCode || 500 %> Error</span>
+        </div>
+
+        <h1 class="error-title">
+            <%= statusCode === 404 ? "We couldn’t find that page." : "Something went wrong." %>
+        </h1>
+
+        <p class="error-text">
+            <%= message || "The page may have been moved, removed, or is temporarily unavailable." %>
+        </p>
+
+        <div class="error-actions">
+            <a href="/" class="btn btn-dark error-btn-primary">Go to Home</a>
+            <a href="/listings" class="btn btn-outline-dark error-btn-secondary">Browse Listings</a>
+        </div>
     </div>
-</div>
+</section>

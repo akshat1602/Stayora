@@ -1266,6 +1266,68 @@ main.container {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.12) !important;
 }
 
+/* ERROR PAGE */
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem 3rem;
+  min-height: 70vh;
+}
+
+.error-card {
+  width: min(100%, 720px);
+  background: #ffffff;
+  border: 1px solid #ececec;
+  border-radius: 1.35rem;
+  padding: 2.2rem 1.5rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  text-align: center;
+}
+
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: #fff1f2;
+  color: #fe424d;
+  padding: 0.42rem 0.82rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.error-title {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #222222;
+  margin-bottom: 0.75rem;
+}
+
+.error-text {
+  max-width: 44ch;
+  margin: 0 auto 1.4rem;
+  color: #6b6b6b;
+  line-height: 1.75;
+  font-size: 0.98rem;
+}
+
+.error-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.error-btn-primary,
+.error-btn-secondary {
+  min-width: 170px;
+  border-radius: 999px !important;
+  padding: 0.78rem 1.15rem !important;
+}
+
 /* MAP */
 .map-wrapper {
   width: 100%;
@@ -1620,6 +1682,34 @@ main.container {
 
   .auth-submit-btn {
     min-height: 48px;
+  }
+
+  .error-page {
+    padding: 1.4rem 0.8rem 2.2rem;
+    min-height: 62vh;
+  }
+
+  .error-card {
+    padding: 1.6rem 1rem;
+    border-radius: 1rem;
+  }
+
+  .error-title {
+    font-size: 1.85rem;
+  }
+
+  .error-text {
+    font-size: 0.94rem;
+  }
+
+  .error-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .error-btn-primary,
+  .error-btn-secondary {
+    width: 100%;
   }
 
   .map-wrapper {
