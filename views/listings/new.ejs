@@ -1,15 +1,17 @@
 <!-- EJS-mate -->
 <% layout("/layouts/boilerplate") %>
 
-
 <div class="new-wrapper mt-3">
-    <div class="new-form-container">
+    <div class="new-form-container form-shell">
+        <div class="form-page-header">
+            <span class="form-page-eyebrow">Host on Stayora</span>
+            <h3>Create a New Listing</h3>
+            <p class="form-page-subtitle">
+                Add the essentials below so guests can discover your stay more easily.
+            </p>
+        </div>
 
-
-        <h3>Create a New Listing</h3>
-
-
-        <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+        <form action="/listings" method="POST" novalidate class="needs-validation stayora-form" enctype="multipart/form-data">
             <!-- Title of listing -->
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -29,7 +31,6 @@
                 </div>
             </div>
 
-
             <!-- Description of listing -->
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -46,7 +47,6 @@
                     Description looks good!
                 </div>
             </div>
-
 
             <!-- Category of listing -->
             <div class="mb-3">
@@ -77,7 +77,6 @@
                 </div>
             </div>
 
-
             <!-- Image Link of listing -->
             <div class="mb-3">
                 <label for="image" class="form-label">Upload Listing Image</label>
@@ -89,8 +88,8 @@
                     class="form-control"
                     required
                 >
+                <div class="form-helper-text">Choose a clear cover image that represents the stay well.</div>
             </div>
-
 
             <!-- Price and country of listing -->
             <div class="row g-3">
@@ -114,7 +113,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-12 col-md-8">
                     <label for="country" class="form-label">Country</label>
                     <input
@@ -133,7 +131,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Location of listing -->
             <div class="mb-3 mt-3">
@@ -154,23 +151,19 @@
                 </div>
             </div>
 
-
             <button class="btn btn-dark add-btn mt-3 new-submit-btn">Add Listing</button>
         </form>
     </div>
 </div>
 
-
 <script>
     const newImageInput = document.getElementById('newImageInput');
     const newPreview = document.getElementById('newImagePreview');
-
 
     if (newImageInput) {
         newImageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (!file) return;
-
 
             const reader = new FileReader();
             reader.onload = function(evt) {

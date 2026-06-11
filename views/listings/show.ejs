@@ -102,12 +102,14 @@
 
                         <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
                             <div class="booking-box mb-4">
-                                <h4>Book this stay</h4>
-                                <p class="text-muted mb-3">
-                                    Select your stay dates to check availability.
-                                </p>
+                                <div class="booking-box-head">
+                                    <h4>Book this stay</h4>
+                                    <p class="booking-subtext">
+                                        Select your stay dates to check availability.
+                                    </p>
+                                </div>
 
-                                <form action="/listings/<%= listing._id %>/bookings" method="POST">
+                                <form action="/listings/<%= listing._id %>/bookings" method="POST" novalidate class="needs-validation stayora-form booking-form">
                                     <div class="mb-3">
                                         <label for="checkIn" class="form-label">Check-in</label>
                                         <input
@@ -117,6 +119,9 @@
                                             class="form-control"
                                             required
                                         >
+                                        <div class="invalid-feedback">
+                                            Please select a valid check-in date.
+                                        </div>
                                     </div>
 
                                     <div class="mb-3">
@@ -128,6 +133,9 @@
                                             class="form-control"
                                             required
                                         >
+                                        <div class="invalid-feedback">
+                                            Please select a valid check-out date.
+                                        </div>
                                     </div>
 
                                     <button class="btn btn-dark w-100 booking-btn">Reserve</button>
@@ -163,9 +171,14 @@
                         <% if (currUser) { %>
                             <hr class="my-4 review-sep">
                             <div class="review-form-box">
-                                <h4>Leave a Review</h4>
+                                <div class="review-form-head">
+                                    <h4>Leave a Review</h4>
+                                    <p class="review-form-subtext">
+                                        Share your stay experience to help future guests.
+                                    </p>
+                                </div>
 
-                                <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+                                <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation stayora-form review-form">
 
                                     <div class="mb-3 mt-3">
                                         <label for="rating" class="form-label">Rating</label>
@@ -187,11 +200,12 @@
                                             <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                                             <label for="first-rate5" title="Amazing">5 stars</label>
                                         </fieldset>
+                                        <div class="form-helper-text">Choose a rating before submitting your review.</div>
                                     </div>
 
                                     <div class="mb-3 mt-3">
                                         <label for="comment" class="form-label">Comments</label>
-                                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required placeholder="Share what you liked about this stay"></textarea>
+                                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control review-textarea" required placeholder="Share what you liked about this stay"></textarea>
                                         <div class="invalid-feedback">Please add some comments for review.</div>
                                     </div>
 
@@ -231,6 +245,9 @@
                             </div>
                         <% } else { %>
                             <div class="review-empty-state">
+                                <div class="review-empty-icon">
+                                    <i class="fa-regular fa-message"></i>
+                                </div>
                                 <h5>No reviews yet</h5>
                                 <p>Be the first guest to share an experience for this stay.</p>
                             </div>

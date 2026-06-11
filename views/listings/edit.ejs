@@ -1,15 +1,17 @@
 <!-- EJS-mate -->
 <% layout("/layouts/boilerplate") %>
 
-
 <div class="edit-wrapper mt-3">
-    <div class="edit-form-container">
+    <div class="edit-form-container form-shell">
+        <div class="form-page-header">
+            <span class="form-page-eyebrow">Update your stay</span>
+            <h3>Edit Your Listing</h3>
+            <p class="form-page-subtitle">
+                Refine the details below to keep your listing accurate and attractive to guests.
+            </p>
+        </div>
 
-
-        <h3>Edit Your Listing</h3>
-
-
-        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation stayora-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control <%= error && error.errors && error.errors.title ? 'is-invalid' : '' %>" required>
@@ -17,14 +19,12 @@
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
-
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="listing[description]" class="form-control edit-textarea <%= error && error.errors && error.errors.description ? 'is-invalid' : '' %>" required><%= listing.description %></textarea>
                 <div class="invalid-feedback">Please enter a description.</div>
                 <div class="valid-feedback">Looks good!</div>
             </div>
-
 
             <!-- Category of listing -->
             <div class="mb-3">
@@ -51,11 +51,9 @@
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
-
             <!-- current image preview shown below -->
             <div class="mb-3">
                 <label class="form-label d-block">Original Listing Image</label><br>
-
 
                 <% if (originalImageUrl || (listing.image && listing.image.url)) { %>
                     <img id="currentImagePreview" src="<%= originalImageUrl ? originalImageUrl : (listing.image && listing.image.url ? listing.image.url : '') %>" class="card-img-top edit-preview-img mb-3" alt="current listing image">
@@ -63,12 +61,11 @@
                     <img id="currentImagePreview" src="" class="card-img-top edit-preview-img mb-3" alt="preview" style="display:none;">
                 <% } %>
 
-
                 <label for="image" class="form-label">Upload New Image</label>
                 <input id="imageInput" name="listing[image]" type="file" class="form-control <%= error && error.errors && error.errors.image ? 'is-invalid' : '' %>">
+                <div class="form-helper-text">Upload a new image only if you want to replace the current one.</div>
                 <div class="valid-feedback">Looks good!</div>
             </div>
-
 
             <div class="row g-3">
                 <div class="col-12 col-md-4">
@@ -78,7 +75,6 @@
                     <div class="valid-feedback">Looks good!</div>
                 </div>
 
-
                 <div class="col-12 col-md-8">
                     <label for="country" class="form-label">Country</label>
                     <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control <%= error && error.errors && error.errors.country ? 'is-invalid' : '' %>" required>
@@ -87,7 +83,6 @@
                 </div>
             </div>
 
-
             <div class="mb-3 mt-3">
                 <label for="location" class="form-label">Location</label>
                 <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control <%= error && error.errors && error.errors.location ? 'is-invalid' : '' %>" required>
@@ -95,20 +90,16 @@
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
-
             <button class="btn btn-dark edit-btn mt-3 edit-submit-btn">Save Changes</button>
         </form>
 
-
     </div>
 </div>
-
 
 <script>
     // Client-side preview of selected image file
     const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('currentImagePreview');
-
 
     if(imageInput){
         imageInput.addEventListener('change', (e) => {

@@ -1,15 +1,31 @@
 <!-- Success Part -->
 <% if(success && success.length) {%>
-<div class="alert alert-success alert-dismissable fade show col-6 offset-3" role="alert"> 
-    <%= success %>
+<div class="alert alert-success alert-dismissible fade show stayora-alert" role="alert">
+    <div class="stayora-alert-content">
+        <div class="stayora-alert-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="stayora-alert-text">
+            <p class="stayora-alert-title">Success</p>
+            <p class="stayora-alert-message"><%= success %></p>
+        </div>
+    </div>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <% } %>
 
 <!-- Error Part -->
- <% if(error && error.length) {%>
-<div class="alert alert-danger alert-dismissable fade show col-6 offset-3" role="alert"> 
-    <%= error %>
+<% if(error && error.length) {%>
+<div class="alert alert-danger alert-dismissible fade show stayora-alert" role="alert">
+    <div class="stayora-alert-content">
+        <div class="stayora-alert-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div class="stayora-alert-text">
+            <p class="stayora-alert-title">Something went wrong</p>
+            <p class="stayora-alert-message"><%= error %></p>
+        </div>
+    </div>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <% } %>

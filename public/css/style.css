@@ -291,6 +291,79 @@ main.container {
   font-size: 1.05rem;
 }
 
+/* FLASH MESSAGES */
+.flash-wrapper {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 1rem;
+}
+
+.stayora-alert {
+  border: none !important;
+  border-radius: 1rem !important;
+  padding: 0.95rem 1rem !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stayora-alert.alert-success {
+  background: #edfdf3;
+  color: #14532d;
+}
+
+.stayora-alert.alert-danger {
+  background: #fff1f2;
+  color: #9f1239;
+}
+
+.stayora-alert-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.stayora-alert-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.95rem;
+}
+
+.stayora-alert-text {
+  min-width: 0;
+}
+
+.stayora-alert-title {
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+  font-size: 0.96rem;
+  line-height: 1.3;
+}
+
+.stayora-alert-message {
+  margin-bottom: 0;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.stayora-alert .btn-close {
+  box-shadow: none !important;
+  opacity: 0.7;
+}
+
+.stayora-alert .btn-close:hover {
+  opacity: 1;
+}
+
 .footer-bottom {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -531,6 +604,91 @@ main.container {
   min-width: 160px;
 }
 
+/* SHARED FORM UI */
+.form-shell {
+  background: #ffffff;
+  border: 1px solid #ececec;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.form-page-header {
+  margin-bottom: 1.25rem;
+}
+
+.form-page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #fff1f2;
+  color: #fe424d;
+  padding: 0.38rem 0.78rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.9rem;
+}
+
+.form-page-subtitle {
+  color: #6b6b6b;
+  line-height: 1.65;
+  margin-bottom: 0;
+  max-width: 52ch;
+}
+
+.stayora-form .form-label {
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 0.45rem;
+}
+
+.stayora-form .form-control,
+.stayora-form .form-select {
+  min-height: 50px;
+  border-radius: 0.85rem;
+  border: 1px solid #dddddd;
+  padding: 0.78rem 0.95rem;
+  box-shadow: none !important;
+}
+
+.stayora-form textarea.form-control {
+  min-height: 140px;
+}
+
+.stayora-form .form-control:focus,
+.stayora-form .form-select:focus {
+  border-color: #fe424d;
+  box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.12) !important;
+}
+
+.form-helper-text {
+  margin-top: 0.45rem;
+  color: #7a7a7a;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.stayora-form .invalid-feedback,
+.stayora-form .valid-feedback {
+  margin-top: 0.45rem;
+  font-size: 0.88rem;
+}
+
+.stayora-form .form-control.is-invalid,
+.stayora-form .form-select.is-invalid,
+.stayora-form .was-validated .form-control:invalid,
+.stayora-form .was-validated .form-select:invalid {
+  background-image: none;
+}
+
+.stayora-form .form-control.is-valid,
+.stayora-form .form-select.is-valid,
+.stayora-form .was-validated .form-control:valid,
+.stayora-form .was-validated .form-select:valid {
+  background-image: none;
+}
+
 /* SHOW PAGE */
 .show-wrapper {
   display: flex;
@@ -728,6 +886,24 @@ main.container {
   margin-bottom: 0.4rem;
 }
 
+.booking-box-head,
+.review-form-head {
+  margin-bottom: 0.9rem;
+}
+
+.booking-subtext,
+.review-form-subtext {
+  margin-bottom: 0;
+  color: #6b6b6b;
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.booking-form .form-control,
+.review-form .form-control {
+  background-color: #ffffff;
+}
+
 .booking-btn {
   border-radius: 0.8rem !important;
   padding: 0.8rem 1rem !important;
@@ -747,6 +923,11 @@ main.container {
 
 .review-form-box h4 {
   margin-bottom: 0.35rem;
+}
+
+.review-textarea {
+  min-height: 130px;
+  resize: vertical;
 }
 
 .review-submit-btn {
@@ -811,6 +992,20 @@ main.container {
   border-radius: 1rem;
   padding: 1.2rem 1rem;
   background: #fcfcfc;
+  text-align: center;
+}
+
+.review-empty-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 0.9rem;
+  border-radius: 50%;
+  background: #fff1f2;
+  color: #fe424d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
 }
 
 .review-empty-state h5 {
@@ -1238,6 +1433,33 @@ main.container {
     text-align: center;
   }
 
+  .flash-wrapper {
+    margin-bottom: 0.85rem;
+  }
+
+  .stayora-alert {
+    padding: 0.9rem 0.9rem !important;
+    gap: 0.8rem;
+  }
+
+  .stayora-alert-content {
+    gap: 0.7rem;
+  }
+
+  .stayora-alert-icon {
+    width: 1.85rem;
+    height: 1.85rem;
+    font-size: 0.88rem;
+  }
+
+  .stayora-alert-title {
+    font-size: 0.92rem;
+  }
+
+  .stayora-alert-message {
+    font-size: 0.9rem;
+  }
+
   .new-wrapper {
     padding: 0 0.8rem;
   }
@@ -1280,6 +1502,21 @@ main.container {
 
   .edit-submit-btn {
     width: 100%;
+  }
+
+  .form-shell {
+    padding: 1.1rem;
+    border-radius: 1rem;
+  }
+
+  .form-page-subtitle {
+    font-size: 0.94rem;
+  }
+
+  .stayora-form .form-control,
+  .stayora-form .form-select {
+    min-height: 48px;
+    padding: 0.72rem 0.85rem;
   }
 
   .show-wrapper {
@@ -1337,6 +1574,11 @@ main.container {
     text-align: left;
   }
 
+  .booking-subtext,
+  .review-form-subtext {
+    font-size: 0.91rem;
+  }
+
   .review-card-top {
     flex-direction: column;
     gap: 0.35rem;
@@ -1344,6 +1586,12 @@ main.container {
 
   .review-card .card-body {
     padding: 0.95rem !important;
+  }
+
+  .review-empty-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 1.25rem;
   }
 
   .auth-section {
