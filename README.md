@@ -10,22 +10,6 @@ Stayora is a full-stack Airbnb-inspired rental listing web application built wit
 
 Stayora was built as a portfolio-ready full-stack project to demonstrate practical web development skills across authentication, CRUD operations, server-side rendering, database relationships, third-party API integration, image hosting, search and filter UX, wishlist handling, and booking validation. GitHub portfolio READMEs are strongest when they include a concise overview, a project demo, the main technologies used, and a clear explanation of the problem the project solves.
 
-## Features
-
-- Secure user authentication with Passport.js.
-- Create, edit, and delete property listings.
-- Upload and manage listing images with Cloudinary.
-- Interactive location maps with Mapbox.
-- Add and delete reviews with star ratings.
-- Wishlist feature to save favorite listings.
-- Real backend search by title, location, and country.
-- Filters for category, minimum price, maximum price, and sorting.
-- Category filter state preservation with existing search and filter parameters.
-- Booking feature with date availability validation.
-- Unavailable booked dates shown on listing pages.
-- Flash messages and session management.
-- Responsive UI with Bootstrap and custom CSS, including the latest empty-state and interface polish updates.
-
 ## Tech Stack
 
 - **Backend:** Node.js, Express.js
@@ -36,24 +20,6 @@ Stayora was built as a portfolio-ready full-stack project to demonstrate practic
 - **Image Hosting:** Cloudinary, Multer, Multer-Storage-Cloudinary
 - **Session Store:** connect-mongo
 - **Deployment:** Render
-
-## Core Modules
-
-- **Authentication:** Signup, login, logout, and route protection.
-- **Listings:** Full CRUD for rental properties.
-- **Reviews:** Add ratings and comments for listings.
-- **Wishlist:** Save and remove favorite stays.
-- **Search & Filters:** Search by keywords and refine results with category, price, and sorting filters.
-- **Bookings:** Reserve listings with date conflict prevention.
-- **Maps:** Geocoded listing locations with interactive map display.
-
-## Recent Updates
-
-- Improved search and filter flow for a smoother browsing experience.
-- Added booking validation and unavailable date handling on listing pages.
-- Refined responsive create and edit listing forms.
-- Polished empty states and UI consistency across updated screens.
-- Shipped the latest updates to the live project.
 
 ## Project Structure
 
@@ -71,19 +37,6 @@ Stayora/
 │── schema.js
 │── package.json
 ```
-
-Project documentation is easier to scan when it includes a short structure section showing where the main app files live.
-
-## Screens to Highlight
-
-- Home page with search and filters.
-- Listing detail page with map, reviews, wishlist, and booking section.
-- New listing form.
-- Edit listing form.
-- Wishlist page.
-- Authentication pages.
-
-README guides for portfolio projects often recommend adding screenshots or demo visuals so visitors can quickly understand the product before running it locally.
 
 ## Installation
 
@@ -114,8 +67,6 @@ README guides for portfolio projects often recommend adding screenshots or demo 
    http://localhost:8080
    ```
 
-Good READMEs should include clear installation steps, minimal setup friction, and copy-paste-ready commands for local development.
-
 ## Environment Variables
 
 The project requires these environment variables:
@@ -127,24 +78,20 @@ The project requires these environment variables:
 - `CLOUD_API_SECRET` — Cloudinary API secret.
 - `MAP_TOKEN` — Mapbox access token.
 
-Configuration details are a recommended README section because they help others run the project without guessing missing setup values.
+## Preview
 
-## Usage
+<img width="1894" height="911" alt="image" src="https://github.com/user-attachments/assets/16e7637a-d46a-487e-b848-0ecd1ad8285a" />
 
-- Browse listings from the home page.
-- Search stays by title, location, or country.
-- Apply category and price filters to narrow results.
-- Open a listing to view its images, map, reviews, wishlist button, and booking section.
-- Sign in to create listings, save favorites, leave reviews, and make bookings.
+<img width="1891" height="909" alt="image" src="https://github.com/user-attachments/assets/9a910cce-a597-490e-82fe-dea9c14a5f4c" />
 
-## Why This Project Matters
+<img width="1895" height="911" alt="image" src="https://github.com/user-attachments/assets/5bff7af4-5767-4a20-8d3b-cbd927618934" />
 
-Stayora demonstrates full-stack application design beyond basic CRUD by combining authentication, media uploads, geolocation, search, filtering, wishlist flows, and booking validation in one project. Portfolio-focused GitHub projects are stronger when they explain both what was built and what skills the project proves to recruiters or collaborators.
+<img width="1891" height="910" alt="image" src="https://github.com/user-attachments/assets/c9fe78d1-8046-4265-92d1-3281ebeab770" />
+
+
+
+
 
 ## Author
 
 Developed by **Akshat Trivedi**.
-
-## License
-
-This project is built for learning and portfolio purposes.
